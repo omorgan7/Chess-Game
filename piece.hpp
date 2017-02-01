@@ -3,9 +3,9 @@
 #include<iostream>
 using namespace std;
 class piece {
-
     public:
-    void hello_piece_world(void);
+        void hello_piece_world(void);
+
 
     //private:
 

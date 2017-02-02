@@ -9,7 +9,7 @@ void game::display_board_state(void){
     white_pieces = U"♖♘♗♔♕♗♘♖";
     white_pawns = U"♙♙♙♙♙♙♙♙";
     empty_line = U"        ";
-    black_pieces = U"♜♝♞♚♛♝♞♜";
+    black_pieces = U"♜♞♝♚♛♝♞♜";
     black_pawns = U"♟♟♟♟♟♟♟♟";
     auto count = 0;
     cout<<++count<<" ";
@@ -21,9 +21,10 @@ void game::display_board_state(void){
         print_chessboard_line(&empty_line);
     }
     cout<<++count<<" ";
-    print_chessboard_line(&black_pieces);
+    print_chessboard_line(&black_pawns);  
+   
     cout<<++count<<" ";
-    print_chessboard_line(&black_pawns);    
+    print_chessboard_line(&black_pieces);
 }
 
 void game::print_chessboard_line(u32string *stateString){

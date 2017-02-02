@@ -2,8 +2,6 @@
 #define game_hpp
 #include<iostream>
 #include<string>
-#include <codecvt>
-#include <locale>
 
 using namespace std;
 
@@ -11,14 +9,14 @@ using namespace std;
 class game {
     public:
         void display_board_state(void);
-        void print_chessboard_line(u32string *statestring);
+        void print_chessboard_line(string *statestring);
 
     private:
-        u32string white_pieces; 
-        u32string white_pawns;
-        u32string empty_line;
-        u32string black_pieces;
-        u32string black_pawns;
+        string white_pieces; 
+        string white_pawns;
+        string empty_line;
+        string black_pieces;
+        string black_pawns;
 };
 
 

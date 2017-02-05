@@ -2,7 +2,7 @@
 #define piece_hpp
 #include<iostream>
 
-#define WHITE 0;
+#define WHITE -1;
 #define BLACK 1;
 #define ALIVE 1;
 #define OUT 0;

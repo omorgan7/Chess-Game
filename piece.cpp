@@ -41,39 +41,39 @@ king::king(){
 void king::move( int new_x, int new_y){
     if (((current_x-new_x != 1)&&(current_x-new_x != -1))|((current_y-new_y != 1)&&(current_y-new_y != -1))){
             cout<<"Invalid Move"<<'\n';
-    return;
+            return;
     };
     if ((new_x <0)|(new_x >7)|(new_y<0)|(new_y>7)){
-            cout<<"Invalid Move"<<'\n';
+        cout<<"Invalid Move"<<'\n';
         return;
     };
     current_x=new_x;
     current_y=new_y;
-        return;
+    return;
 };
 
  queen::queen(){
 // if WHITE{
-  current_x=4;
-     current_y=0;
+    current_x=4;
+    current_y=0;
 //     return;
 //    };
 //  current_x =4;
 //     current_y=7;
- };
+};
 
 
 void queen::move(int new_x, int new_y){
     if ((new_x <0)|(new_x >7)|(new_y<0)|(new_y>7)){
-                cout<<"Invalid Move"<<'\n';
-            return;
+        cout<<"Invalid Move"<<'\n';
+        return;
     };
     if ((current_x - new_x !=0) && (current_y-new_y!=0)&&((current_x-new_x)*(current_x-new_x)!=(current_y-new_y)*(current_y-new_y))){
-                cout<<"Invalid Move" << '\n';
-            return;
-        };
-            current_x=new_x;
-            current_y=new_y;
+        cout<<"Invalid Move" << '\n';
+        return;
+    };
+        current_x=new_x;
+        current_y=new_y;
         return;
 };
 

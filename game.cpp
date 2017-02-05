@@ -18,28 +18,24 @@ game::game() {
 	list<queen> black_queen = {};*/
 }
 
-
-game::game(){};
-
-
-// bool game::process_input(int color){
-//     string response;
-//     smatch matcher;
-//     bool matched_expression = 0;
-//     while(1){
-//         getline(cin,response);
-//         cout<<"\n";
-//         regex_search(response,matcher,expression);
-//         matched_expression = response==matcher[0];
-//         if(matched_expression==1){
-//             break;
-//         }
-//         if(update_board_state(response,color) == 1){
-//             break;
-//         };
-//         cout<<"Please enter a valid move (e.g. Be5, Pe8=Q, Bef6 or B5f6):\n";
-//     }
-// }
+void game::process_input(int color){
+    string response;
+    smatch matcher;
+    bool matched_expression = 0;
+    while(1){
+        getline(cin,response);
+        cout<<"\n";
+        regex_search(response,matcher,expression);
+        matched_expression = response==matcher[0];
+        if(matched_expression==1){
+            break;
+        }
+        if(update_board_state(response,color) == 1){
+            break;
+        };
+        cout<<"Please enter a valid move (e.g. Be5, Pe8=Q, Bef6 or B5f6):\n";
+    }
+}
 
 void game::display_board_state(void){
     //Temporary function to display the initial state of the board_state
@@ -94,6 +90,7 @@ bool game::update_board_state(string move, int colour)
 	for (auto i = 0; i < whites.length; i++) {
 		if whites[i] = piece_moved
 	}*/
+    return 0;
 }
 
 void game::reset()
@@ -102,6 +99,6 @@ void game::reset()
 }
 
 bool game::CheckMate(int color){
-
+    return 0;
 };  
 

@@ -1,5 +1,5 @@
 #include "piece.hpp"
-#include <iostream>     // std::cout
+#include <iostream>
 #include <cmath>
 
 void piece::hello_piece_world(void){
@@ -14,22 +14,22 @@ pawn::pawn(int x_coord, int y_coord, int colour){
     is_initial=1;
 };
 void pawn::move(int new_x, int new_y){
-     if (is_initial ==1){
+    if (is_initial ==1){
         if ((new_x == current_x)&&((new_y==current_y+1*team_colour)|(new_y==current_y+2*team_colour))){
             current_x=new_x;
             current_y=new_y;
             is_initial=0;
-        return;
+            return;
         };
-    };
-    if ((new_x == current_x)&&(new_y==current_y+1*team_colour)){
-        current_x=new_x;
-        current_y=new_y;
-        return;
-    };
-    cout<<"Invalid Move"<<'\n';
-    return;
-    };
+};
+if ((new_x == current_x)&&(new_y==current_y+1*team_colour)){
+current_x=new_x;
+current_y=new_y;
+return;
+};
+cout<<"Invalid Move"<<'\n';
+return;
+};
 
 king::king(int colour){
     team_colour=colour;

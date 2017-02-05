@@ -9,7 +9,7 @@
 
 using namespace std;
 int main(){
-
+    game G;
     cout<<"Welcome to text chess!\n";
      G.display_board_state();
     // while(1){
@@ -25,8 +25,7 @@ int main(){
     //     }
     // }
 
-  pawn P;
-  P.move(0,3);
-  P.move(0,5);
+  knight N(2,0,WHITE);
+N.move(4,1);
     return 0;
 }

@@ -24,6 +24,7 @@ class piece {
         void state(int);
         int current_x;
         int current_y;
+        int team_colour;
         bool is_alive;
 
 };
@@ -31,32 +32,34 @@ class piece {
 
 class queen:piece{
     public:
-    queen();
+    queen(int colour);
+    void reset(void);
     void move (int new_x, int new_y);
 };
 class king:piece{
     public:
-    king();
+    king(int colour);
+    void reset(void);
     void move(int new_x, int new_y);
 };
 class bishop:piece{
     public:
-    bishop();
+    bishop(int x_coord, int y_coord, int colour);
     void move(int new_x, int new_y);
 };
 class knight:piece{
     public:
-    knight();
+    knight(int x_coord, int y_coord, int colour);
     void move(int new_x, int new_y);
 };
 class rook:piece{
     public:
-    rook();
+    rook(int x_coord, int y_coord, int colour);
         void move(int new_x, int new_y);    
 };
 class pawn:piece{
     public:
-    pawn();
+    pawn(int x_coord, int y_coord, int colour);
         void move(int new_x, int new_y);
     private:
     int is_initial ; 

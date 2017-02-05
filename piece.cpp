@@ -6,7 +6,12 @@ void piece::hello_piece_world(void){
     cout<<"black = ♔♕♖♗♘♙\nwhite = ♚♛♜♝♞♟\n";
 };
 
-
+int piece::get_x_coords(void){
+    return current_x;
+}
+int piece::get_y_coords(void){
+    return current_y;
+}
 pawn::pawn(int x_coord, int y_coord, int colour){
     current_x = x_coord;
     current_y=y_coord;
@@ -32,13 +37,13 @@ bool pawn::move(int new_x, int new_y){
 
 king::king(int colour){
     team_colour=colour;
-   if(team_colour== WHITE){
+    if(team_colour== WHITE){
         current_x= 3;
         current_y= 0;
         return;
     };
-       current_x= 3;
-       current_y= 7;
+        current_x= 3;
+        current_y= 7;
 };
 
 bool king::move( int new_x, int new_y){
@@ -69,6 +74,7 @@ bool queen::move(int new_x, int new_y){
     current_x=new_x;
     current_y=new_y;
     return 1;
+
 };
 
 rook::rook(int x_coord, int y_coord, int colour){
@@ -84,6 +90,7 @@ bool rook::move(int new_x, int new_y){
     current_x=new_x;
     current_y=new_y;
     return 1;
+
 };
 
 bishop::bishop(int x_coord, int y_coord, int colour){
@@ -113,6 +120,7 @@ knight::knight(int x_coord, int y_coord, int colour){
     team_colour = colour;
 };
 
+
 bool knight::move(int new_x, int new_y){  
     if ((new_x == current_x - 1)&&((new_y == current_y -2)|(new_y == current_y+2))){
             current_x=new_x;
@@ -127,6 +135,7 @@ bool knight::move(int new_x, int new_y){
     if ((new_x == current_x + 1)&&((new_y == current_y -2)|(new_y == current_y+2))){
             current_x=new_x;
             current_y=new_y;
+
         return 1;
     }  ;
     if ((new_x == current_x + 2)&&((new_y == current_y -1)|(new_y == current_y+1))){
@@ -134,7 +143,9 @@ bool knight::move(int new_x, int new_y){
             current_y=new_y;
         return 1;
     };
+
     return 0;
     };
+
     
     

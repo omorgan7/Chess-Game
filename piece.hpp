@@ -45,6 +45,9 @@ class bishop:piece{
     void move(int new_x, int new_y);
 };
 class knight:piece{
+    public:
+    knight();
+    void move(int new_x, int new_y);
 };
 class rook:piece{
     public:
@@ -53,6 +56,9 @@ class rook:piece{
 };
 class pawn:piece{
     public:
+    pawn();
         void move(int new_x, int new_y);
+    private:
+    int is_initial ; 
    };
 #endif 

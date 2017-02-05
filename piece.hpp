@@ -32,36 +32,36 @@ class piece {
 
 class queen:piece{
     public:
-    queen(int colour);
-    void reset(void);
-    void move (int new_x, int new_y);
+        queen(int colour);
+        void reset(void);
+        void move (int new_x, int new_y);
 };
 class king:piece{
     public:
-    king(int colour);
-    void reset(void);
-    void move(int new_x, int new_y);
+        king(int colour);
+        void reset(void);
+        void move(int new_x, int new_y);
 };
 class bishop:piece{
     public:
-    bishop(int x_coord, int y_coord, int colour);
-    void move(int new_x, int new_y);
+        bishop(int x_coord, int y_coord, int colour);
+        void move(int new_x, int new_y);
 };
 class knight:piece{
     public:
-    knight(int x_coord, int y_coord, int colour);
-    void move(int new_x, int new_y);
+        knight(int x_coord, int y_coord, int colour);
+        void move(int new_x, int new_y);
 };
 class rook:piece{
     public:
-    rook(int x_coord, int y_coord, int colour);
+        rook(int x_coord, int y_coord, int colour);
         void move(int new_x, int new_y);    
 };
 class pawn:piece{
     public:
-    pawn(int x_coord, int y_coord, int colour);
+        pawn(int x_coord, int y_coord, int colour);
         void move(int new_x, int new_y);
     private:
-    int is_initial ; 
+        int is_initial ; 
    };
 #endif 

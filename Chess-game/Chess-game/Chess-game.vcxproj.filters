@@ -35,9 +35,6 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Chess-game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

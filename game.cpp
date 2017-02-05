@@ -7,7 +7,7 @@ game::game() {
 	vector<pawn> black_pawns(8);
 	for (auto i = 0; i < 8; i++) {
 		white_pawns[i] = pawn(i, 6, WHITE);
-		black_pawns[i] = pawn(i, 1, WHITE);
+		black_pawns[i] = pawn(i, 1, BLACK);
 	}
 	vector<rook> white_rook(2);
 	white_rook[0] = rook(0, 7, WHITE);
@@ -31,14 +31,14 @@ game::game() {
 	vector<bishop> black_bishop(2);
 	black_bishop[0] = bishop(2, 0, BLACK);
 	black_bishop[1] = bishop(5, 0, BLACK);
-	vector<king> black_king(2);
+	vector<king> black_king(1);
 	black_king[0] = king(BLACK);
-	vector<queen> black_queen(2);
+	vector<queen> black_queen(1);
 	black_queen[0] = queen(BLACK);
 }
 
 
-bool game::process_input(int color) {
+void game::process_input(int color) {
 	string response;
 	smatch matcher;
 	bool matched_expression = 0;

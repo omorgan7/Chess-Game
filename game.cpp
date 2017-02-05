@@ -29,17 +29,17 @@ void game::display_board_state(void) {
 	auto count = 0;
 	cout << ++count << " ";
     for (auto i = 0; i<64; i++){
+        if(i%8 == 0 && i != 0){
+            cout<< "|\n"<< ++count << " ";
+        } 
         if(B.chess_board[i] == nullptr){
-            cout << "|   ";
+            cout << "|    ";
         }
         else{
             cout << "| " <<B.chess_board[i]->PieceName<<" ";
         }
-		
-        if(i%8 == 0){
-            cout<< "|\n"<< ++count << " ";
-        } 
 	}
+    cout<<"|\n";
 }
 
 
@@ -47,7 +47,7 @@ bool game::update_board_state(string move, int colour)
 // Takes in inputted move, and uses this to update board e.g. BNc3
 {
 	string letters = "    a    b    c    d    e    f    g    h";
-	cout << letters << "\n";
+	//cout << letters << "\n";
 	white_pieces = "WRWNWBWKWQWBWNWR";
 	white_pawns = "WPWPWPWPWPWPWPWP";
 	black_pieces = "BRBNBBBKBQBBBNBR";

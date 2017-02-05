@@ -7,11 +7,12 @@
 #define ALIVE 1
 #define OUT 0
 
+
 using namespace std;
 
 class piece {
     public:
-        virtual void move(int new_x, int new_y)=0;
+        virtual bool move(int new_x, int new_y)=0;
     //methods
         void hello_piece_world(void);
         void check_alive();
@@ -25,43 +26,41 @@ class piece {
         int current_x;
         int current_y;
         int team_colour;
-        bool is_alive;
-
+        bool is_alive;      
 };
-//list of public and private member variables to go here.
 
 class queen:piece{
     public:
-    queen(int colour);
-    void reset(void);
-    void move (int new_x, int new_y);
+        queen(int colour);
+        void reset(void);
+        bool move (int new_x, int new_y);
 };
 class king:piece{
     public:
-    king(int colour);
-    void reset(void);
-    void move(int new_x, int new_y);
+        king(int colour);
+        void reset(void);
+        bool move(int new_x, int new_y);
 };
 class bishop:piece{
     public:
-    bishop(int x_coord, int y_coord, int colour);
-    void move(int new_x, int new_y);
+        bishop(int x_coord, int y_coord, int colour);
+        bool move(int new_x, int new_y);
 };
 class knight:piece{
     public:
-    knight(int x_coord, int y_coord, int colour);
-    void move(int new_x, int new_y);
+        knight(int x_coord, int y_coord, int colour);
+        bool move(int new_x, int new_y);
 };
 class rook:piece{
     public:
-    rook(int x_coord, int y_coord, int colour);
-        void move(int new_x, int new_y);    
+        rook(int x_coord, int y_coord, int colour);
+        bool move(int new_x, int new_y);    
 };
 class pawn:piece{
     public:
-    pawn(int x_coord, int y_coord, int colour);
-        void move(int new_x, int new_y);
+        pawn(int x_coord, int y_coord, int colour);
+        bool move(int new_x, int new_y);
     private:
-    int is_initial ; 
+        int is_initial ; 
    };
 #endif 

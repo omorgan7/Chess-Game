@@ -6,7 +6,12 @@ void piece::hello_piece_world(void){
     cout<<"black = ♔♕♖♗♘♙\nwhite = ♚♛♜♝♞♟\n";
 };
 
-
+int piece::get_x_coords(void){
+    return current_x;
+}
+int piece::get_y_coords(void){
+    return current_y;
+}
 pawn::pawn(int x_coord, int y_coord, int colour){
     current_x = x_coord;
     current_y=y_coord;

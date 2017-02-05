@@ -2,10 +2,10 @@
 #define piece_hpp
 #include<iostream>
 
-#define WHITE -1;
-#define BLACK 1;
-#define ALIVE 1;
-#define OUT 0;
+#define WHITE -1
+#define BLACK 1
+#define ALIVE 1
+#define OUT 0
 
 using namespace std;
 
@@ -16,8 +16,8 @@ class piece {
         void hello_piece_world(void);
         void check_alive();
         void score();        
-        // virtual void get_x_coords()=0;
-        // virtual void get_y_coords()=0;
+        int get_x_coords();
+        int get_y_coords();
     private:
 
     protected:
@@ -30,34 +30,34 @@ class piece {
 };
 //list of public and private member variables to go here.
 
-class queen:piece{
+class queen: public piece{
     public:
         queen(int colour);
         void reset(void);
         void move (int new_x, int new_y);
 };
-class king:piece{
+class king: public piece{
     public:
         king(int colour);
         void reset(void);
         void move(int new_x, int new_y);
 };
-class bishop:piece{
+class bishop: public piece{
     public:
         bishop(int x_coord, int y_coord, int colour);
         void move(int new_x, int new_y);
 };
-class knight:piece{
+class knight: public piece{
     public:
         knight(int x_coord, int y_coord, int colour);
         void move(int new_x, int new_y);
 };
-class rook:piece{
+class rook: public piece{
     public:
         rook(int x_coord, int y_coord, int colour);
         void move(int new_x, int new_y);    
 };
-class pawn:piece{
+class pawn: public piece{
     public:
         pawn(int x_coord, int y_coord, int colour);
         void move(int new_x, int new_y);

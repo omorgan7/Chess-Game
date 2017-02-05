@@ -13,14 +13,20 @@ int piece::get_y_coords(void){
     return current_y;
 }
 
-pawn::pawn(int x_coord, int y_coord, int colour){
+pawn::pawn(int x_coord, int y_coord, int colour, piece *board){
     current_x = x_coord;
     current_y=y_coord;
     team_colour = colour;
     is_initial=1;
-    is_alive=ALIVE;
+    chessboard = board;    
 };
 bool pawn::move(int new_x, int new_y){
+    if (*chessboard[new_x + 8*new_y] ! = NULL){
+        if (chessboard[new_x + 8*new_y] -> getColour()==team_colour){
+        return 0;
+        }
+    }
+    
     if (is_initial ==1){
         if ((new_x == current_x)&&((new_y==current_y+1*team_colour)|(new_y==current_y+2*team_colour))){
             current_x=new_x;
@@ -29,11 +35,19 @@ bool pawn::move(int new_x, int new_y){
             return 1;
         };
     };
+ 
+
+
+
+
     if ((new_x == current_x)&&((new_y-current_y)=1*team_colour)){
         current_x=new_x;
         current_y=new_y;
         return 1;
     };
+    if ((abs(new_x - current_x)==1)&&((new_y-current_y)=1*team_colour))&&(OP. PIECE IN SPOT)){//fix this line.
+        return 1;
+    }
     return 0;
 };
 
@@ -76,7 +90,6 @@ bool queen::move(int new_x, int new_y){
     current_x=new_x;
     current_y=new_y;
     return 1;
-
 };
 
 rook::rook(int x_coord, int y_coord, int colour){
@@ -92,7 +105,6 @@ bool rook::move(int new_x, int new_y){
     current_x=new_x;
     current_y=new_y;
     return 1;
-
 };
 
 bishop::bishop(int x_coord, int y_coord, int colour){
@@ -146,4 +158,5 @@ bool knight::move(int new_x, int new_y){
     };
 
     return 0;
-    };  
+}; 
+

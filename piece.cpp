@@ -209,24 +209,23 @@ bool knight::move(int new_x, int new_y, piece **board){
         }
     }
     if ((new_x == current_x - 1)&&((new_y == current_y -2)|(new_y == current_y+2))){
-            current_x=new_x;
-            current_y=new_y;
+        current_x=new_x;
+        current_y=new_y;
         return 1;
-    }  ;
+    };
     if ((new_x == current_x - 2)&&((new_y == current_y -1)|(new_y == current_y+1))){
-            current_x=new_x;
-            current_y=new_y;
+        current_x=new_x;
+        current_y=new_y;
         return 1;
     };
     if ((new_x == current_x + 1)&&((new_y == current_y -2)|(new_y == current_y+2))){
-            current_x=new_x;
-            current_y=new_y;
-
+        current_x=new_x;
+        current_y=new_y;
         return 1;
-    }  ;
+    };
     if ((new_x == current_x + 2)&&((new_y == current_y -1)|(new_y == current_y+1))){
-            current_x=new_x;
-            current_y=new_y;
+        current_x=new_x;
+        current_y=new_y;
         return 1;
     };
 

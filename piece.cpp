@@ -45,12 +45,13 @@ king::king(int colour){
 void king::move( int new_x, int new_y){
     if (((current_x-new_x != 1)&&(current_x-new_x != -1))|((current_y-new_y != 1)&&(current_y-new_y != -1))){
             cout<<"Invalid Move"<<'\n';
-    return;
+            return;
     };
     current_x=new_x;
     current_y=new_y;
-        return;
+    return;
 };
+
 
  queen::queen(int colour){
      team_colour=colour;

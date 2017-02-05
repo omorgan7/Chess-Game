@@ -1,6 +1,7 @@
 #ifndef piece_hpp
 #define piece_hpp
 #include<iostream>
+#include <string>
 
 #define WHITE -1
 #define BLACK 1
@@ -19,6 +20,7 @@ class piece {
         int get_y_coords();
         int getColor();
         piece(int x, int y);
+        string PieceName;
     private:
 
     protected:
@@ -32,7 +34,7 @@ class piece {
 
 class queen: public piece{
     public:
-        queen(int colour, piece *board);
+        queen(int colour);
         void reset(void);
         bool move (int new_x, int new_y);
 
@@ -62,7 +64,7 @@ class rook: public piece{
 class pawn: public piece{
     public:
         pawn(int x_coord, int y_coord, int colour);
-        bool move(int new_x, int new_y);
+        bool move(int new_x, int new_y, piece *board);
 
     private:
         int is_initial ; 

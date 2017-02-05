@@ -2,7 +2,6 @@
 #include <regex>
 
 #include "game.hpp"
-#include "piece.hpp"
 
 #define WHITE -1
 #define BLACK 1

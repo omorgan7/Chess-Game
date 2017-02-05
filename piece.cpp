@@ -7,11 +7,11 @@ void piece::hello_piece_world(void){
     cout<<"black = ♔♕♖♗♘♙\nwhite = ♚♛♜♝♞♟\n";
 };
 
-piece::piece(int x, int y){
+/*piece::piece(int x, int y){
     current_x = x;
     current_y = y;
     is_alive = 0;
-}
+}*/
 
 int piece::get_x_coords(void){
     return current_x;
@@ -36,7 +36,7 @@ bool pawn::move(int new_x, int new_y){
             return 1;
         };
     };
-    if ((new_x == current_x)&&(abs(new_y-current_y)=1)){
+    if ((new_x == current_x)&&(abs(new_y-current_y)==1)){
         current_x=new_x;
         current_y=new_y;
         return 1;

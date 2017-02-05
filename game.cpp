@@ -29,7 +29,7 @@ void game::display_board_state(void) {
 	auto count = 0;
 	cout << ++count << " ";
     for (auto i = 0; i<64; i++){
-        if(B.chess_board[i]== nullptr){
+        if(B.chess_board[i] == nullptr){
             cout << "|   ";
         }
         else{

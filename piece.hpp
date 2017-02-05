@@ -18,7 +18,7 @@ class piece {
         void score();        
         int get_x_coords();
         int get_y_coords();
-        int getColor();
+        short getColour();
         piece(int x, int y);
         string PieceName;
     private:
@@ -36,7 +36,7 @@ class queen: public piece{
     public:
         queen(int colour);
         void reset(void);
-        bool move (int new_x, int new_y);
+        bool move (int new_x, int new_y, piece *board);
 
 };
 class king: public piece{
@@ -44,22 +44,22 @@ class king: public piece{
         king(int colour);
         void reset(void);
 
-        bool move(int new_x, int new_y);
+        bool move(int new_x, int new_y, piece *board);
 };
 class bishop: public piece{
     public:
         bishop(int x_coord, int y_coord, int colour);
-        bool move(int new_x, int new_y);
+        bool move(int new_x, int new_y, piece *board);
 };
 class knight: public piece{
     public:
         knight(int x_coord, int y_coord, int colour);
-        bool move(int new_x, int new_y);
+        bool move(int new_x, int new_y, piece *board);
 };
 class rook: public piece{
     public:
         rook(int x_coord, int y_coord, int colour);
-        bool move(int new_x, int new_y);    
+        bool move(int new_x, int new_y, piece *board);    
 };
 class pawn: public piece{
     public:

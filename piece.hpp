@@ -23,8 +23,8 @@ class piece {
 
     protected:
         void state(int);
-        int current_x;
-        int current_y;
+        int c_x;
+        int c_y;
         int team_colour;
         int piece_value; 
         piece *chessboard;   

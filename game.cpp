@@ -3,7 +3,7 @@
 const regex expression ("([RNBKQP])([abcdefg])([12345678])([=])([RNBKQP])|([RNBKQP])([abcdefg])([12345678])|([RNBKQP])([abcdefg]|[12345678])([abcdefg])([12345678])");
 
 game::game() {
-	list<pawn> white_pawns = {};
+	/*list<pawn> white_pawns = {};
 	list<rook> white_rook = {};
 	list<night> white_night = {};
 	list<bish> white_bish = {};
@@ -14,7 +14,7 @@ game::game() {
 	list<night> black_night = {};
 	list<bish> black_bish = {};
 	list<king> black_king = {};
-	list<queen> black_queen = {};
+	list<queen> black_queen = {};*/
 }
 
 
@@ -82,16 +82,20 @@ bool game::update_board_state(string move, int colour)
 	white_pawns = "WPWPWPWPWPWPWPWP";
 	black_pieces = "BRBNBBBKBQBBBNBR";
 	black_pawns = "BPBPBPBPBPBPBPBP";
-	string piece_moved = move.at(0);
+	/*string piece_moved = move.at(0);
 	string new_coordinate = move.at(1) + move.at(2);
 	string whites[6] = { string R[2], string N[2], string B[2], string K[1], string Q[1], string P[8] };
 	string blacks[6] = { string R[2], string N[2], string B[2], string K[1], string Q[1], string P[8] };
 	for (auto i = 0; i < whites.length; i++) {
 		if whites[i] = piece_moved
-	}
+	}*/
 }
 
 void game::reset()
 {
 	cout << "Another game?\n";
 }
+
+bool game::CheckMate(int color){
+
+};  

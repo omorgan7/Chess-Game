@@ -11,7 +11,7 @@ using namespace std;
 
 class piece {
     public:
-        virtual void move(int new_x, int new_y)=0;
+        virtual bool move(int new_x, int new_y)=0;
     //methods
         void hello_piece_world(void);
         void check_alive();
@@ -25,42 +25,43 @@ class piece {
         int current_x;
         int current_y;
         int team_colour;
-        bool is_alive;
-
+        bool is_alive;      
 };
-//list of public and private member variables to go here.
 
 class queen: public piece{
     public:
         queen(int colour);
         void reset(void);
-        void move (int new_x, int new_y);
+        bool move (int new_x, int new_y);
+
 };
 class king: public piece{
     public:
         king(int colour);
         void reset(void);
-        void move(int new_x, int new_y);
+
+        bool move(int new_x, int new_y);
 };
 class bishop: public piece{
     public:
         bishop(int x_coord, int y_coord, int colour);
-        void move(int new_x, int new_y);
+        bool move(int new_x, int new_y);
 };
 class knight: public piece{
     public:
         knight(int x_coord, int y_coord, int colour);
-        void move(int new_x, int new_y);
+        bool move(int new_x, int new_y);
 };
 class rook: public piece{
     public:
         rook(int x_coord, int y_coord, int colour);
-        void move(int new_x, int new_y);    
+        bool move(int new_x, int new_y);    
 };
 class pawn: public piece{
     public:
         pawn(int x_coord, int y_coord, int colour);
-        void move(int new_x, int new_y);
+        bool move(int new_x, int new_y);
+
     private:
         int is_initial ; 
    };

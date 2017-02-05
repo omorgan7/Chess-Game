@@ -9,8 +9,8 @@
 
 using namespace std;
 int main(){
+     cout<<"Welcome to text chess!\n";
 
-    cout<<"Welcome to text chess!\n";
     game G;
     G.display_board_state();
     while(1){

@@ -18,6 +18,11 @@ game::game() {
 	list<queen> black_queen = {};*/
 }
 
+//game::game(){};
+
+
+
+
 void game::process_input(int color){
     string response;
     smatch matcher;
@@ -35,6 +40,8 @@ void game::process_input(int color){
         };
         cout<<"Please enter a valid move (e.g. Be5, Pe8=Q, Bef6 or B5f6):\n";
     }
+    return 0;
+
 }
 
 void game::display_board_state(void){
@@ -99,6 +106,6 @@ void game::reset()
 }
 
 bool game::CheckMate(int color){
-    return 0;
+    return 0;   
 };  
 

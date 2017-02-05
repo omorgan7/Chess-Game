@@ -14,7 +14,6 @@ class piece {
         virtual bool move(int new_x, int new_y)=0;
     //methods
         void hello_piece_world(void);
-        void check_alive();
         void score();        
         int get_x_coords();
         int get_y_coords();
@@ -25,12 +24,13 @@ class piece {
         int current_x;
         int current_y;
         int team_colour;
-        bool is_alive;      
+        int piece_value; 
+        piece *chessboard;   
 };
 
 class queen: public piece{
     public:
-        queen(int colour);
+        queen(int colour, piece *board);
         void reset(void);
         bool move (int new_x, int new_y);
 

@@ -1,7 +1,7 @@
 #ifndef piece_hpp
 #define piece_hpp
 #include<iostream>
-#include <string>
+#include<string>
 
 #define WHITE -1
 #define BLACK 1
@@ -13,7 +13,6 @@ using namespace std;
 class piece {
     public:
         virtual bool move(int new_x, int new_y)=0;
-    //methods
         void hello_piece_world(void);
         void score();        
         int get_x_coords();

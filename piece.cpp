@@ -7,8 +7,6 @@ void piece::hello_piece_world(void){
     cout<<"black = ♔♕♖♗♘♙\nwhite = ♚♛♜♝♞♟\n";
 };
 
-}
-
 int piece::get_x_coords(void){
     return current_x;
 }
@@ -52,6 +50,7 @@ bool pawn::move(int new_x, int new_y, piece *board){
             return 1;
         };
     };
+
     if ((new_x == current_x)&&((new_y-current_y)=1*team_colour)){
         current_x=new_x;
         current_y=new_y;

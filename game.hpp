@@ -10,7 +10,6 @@ using namespace std;
 //list of public and private member variables to go here.
 class game {
     public:
-        game();
         void display_board_state(void);
         void print_chessboard_line(string *statestring);
         void process_input(int color);

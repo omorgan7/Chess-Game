@@ -17,6 +17,8 @@ class piece {
         void score();        
         int get_x_coords();
         int get_y_coords();
+        int getColor();
+        piece(int x, int y);
     private:
 
     protected:

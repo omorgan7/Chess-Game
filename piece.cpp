@@ -1,10 +1,17 @@
 #include "piece.hpp"
 #include <iostream>
 #include <cmath>
-
+////////////////////////////////////
+//Piece Class
 void piece::hello_piece_world(void){
     cout<<"black = ♔♕♖♗♘♙\nwhite = ♚♛♜♝♞♟\n";
 };
+
+piece::piece(int x, int y){
+    current_x = x;
+    current_y = y;
+    is_alive = 0;
+}
 
 int piece::get_x_coords(void){
     return current_x;
@@ -12,8 +19,10 @@ int piece::get_x_coords(void){
 int piece::get_y_coords(void){
     return current_y;
 }
-
+/////////////////////////////////////////
+//PAWN CLASS
 pawn::pawn(int x_coord, int y_coord, int colour, piece *board){
+
     current_x = x_coord;
     current_y=y_coord;
     team_colour = colour;
@@ -50,7 +59,8 @@ bool pawn::move(int new_x, int new_y){
     }
     return 0;
 };
-
+/////////////////////////////////
+//King Class
 king::king(int colour){
     team_colour=colour;
     is_alive = ALIVE;
@@ -71,6 +81,8 @@ bool king::move( int new_x, int new_y){
     return 1;
 };
 
+///////////////////////////
+//Queen Class
 
 queen::queen(int colour){
     is_alive=ALIVE;
@@ -91,7 +103,8 @@ bool queen::move(int new_x, int new_y){
     current_y=new_y;
     return 1;
 };
-
+////////////////////////
+//Rook Class
 rook::rook(int x_coord, int y_coord, int colour){
     current_x=x_coord;
     current_y=y_coord;
@@ -106,7 +119,8 @@ bool rook::move(int new_x, int new_y){
     current_y=new_y;
     return 1;
 };
-
+//////////////////////
+//Bishop Class
 bishop::bishop(int x_coord, int y_coord, int colour){
     current_x=x_coord;
     current_y=y_coord;
@@ -127,7 +141,8 @@ bool bishop::move(int new_x, int new_y){
     current_y=new_y;
     return 1;
 };
-
+/////////////////
+//Knight Class
 knight::knight(int x_coord, int y_coord, int colour){
     current_x = x_coord;
     current_y=y_coord;

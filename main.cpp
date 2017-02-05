@@ -4,10 +4,12 @@
 #include "game.hpp"
 #include "piece.hpp"
 
+#define WHITE 0
+#define BLACK 1
+
 using namespace std;
 int main(){
-    enum class player_colors{black, white};
-     game G;
+
     cout<<"Welcome to text chess!\n";
      G.display_board_state();
     // while(1){

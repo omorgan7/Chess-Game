@@ -52,14 +52,14 @@ bool game::update_board_state(string move, int colour)
 	white_pawns = "WPWPWPWPWPWPWPWP";
 	black_pieces = "BRBNBBBKBQBBBNBR";
 	black_pawns = "BPBPBPBPBPBPBPBP";
-	if (move.length == 3) {
+	/*if (move.length == 3) {
 		if (move.at(0) == 'R') {
 			rook.move(letters.find(to_string(move.at(1))), letters.find(to_string(move.at(2))));
 		}
 		else if (move.at(0) == 'N') {
 			knight.move(letters.find(to_string(move.at(1))), letters.find(to_string(move.at(2))));
 		}
-	}
+	}*/
 	/*string piece_moved = move.at(0);
 	string new_coordinate = move.at(1) + move.at(2);
 	string whites[6] = { string R[2], string N[2], string B[2], string K[1], string Q[1], string P[8] };
@@ -77,6 +77,7 @@ void game::reset()
 }
 
 bool game::CheckMate(int color) {
-return 0;
+	return 0;
+
 };
 

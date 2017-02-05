@@ -12,11 +12,13 @@ int piece::get_x_coords(void){
 int piece::get_y_coords(void){
     return current_y;
 }
+
 pawn::pawn(int x_coord, int y_coord, int colour){
     current_x = x_coord;
     current_y=y_coord;
     team_colour = colour;
     is_initial=1;
+    is_alive=ALIVE;
 };
 bool pawn::move(int new_x, int new_y){
     if (is_initial ==1){
@@ -27,7 +29,7 @@ bool pawn::move(int new_x, int new_y){
             return 1;
         };
     };
-    if ((new_x == current_x)&&(abs(new_y-current_y)=1)){
+    if ((new_x == current_x)&&((new_y-current_y)=1*team_colour)){
         current_x=new_x;
         current_y=new_y;
         return 1;
@@ -37,6 +39,7 @@ bool pawn::move(int new_x, int new_y){
 
 king::king(int colour){
     team_colour=colour;
+    is_alive = ALIVE;
     if(team_colour== WHITE){
         current_x= 3;
         current_y= 0;
@@ -45,7 +48,6 @@ king::king(int colour){
         current_x= 3;
         current_y= 7;
 };
-
 bool king::move( int new_x, int new_y){
     if (((current_x-new_x != 1)&&(current_x-new_x != -1))|((current_y-new_y != 1)&&(current_y-new_y != -1))){
         return 0;
@@ -57,6 +59,7 @@ bool king::move( int new_x, int new_y){
 
 
 queen::queen(int colour){
+    is_alive=ALIVE;
     team_colour=colour;
     if (colour==WHITE){
         current_x=4;
@@ -66,7 +69,6 @@ queen::queen(int colour){
     current_x =4;
     current_y=7;
 };
-
 bool queen::move(int new_x, int new_y){
       if ((current_x - new_x !=0) && (current_y-new_y!=0)&&((abs(current_x-new_x))!=(abs(current_y-new_y)))){
         return 0;
@@ -81,8 +83,8 @@ rook::rook(int x_coord, int y_coord, int colour){
     current_x=x_coord;
     current_y=y_coord;
     team_colour = colour;
+    is_alive = ALIVE;
 };
-
 bool rook::move(int new_x, int new_y){
     if ((current_x - new_x !=0) && (current_y-new_y!=0)){
         return 0;
@@ -97,8 +99,8 @@ bishop::bishop(int x_coord, int y_coord, int colour){
     current_x=x_coord;
     current_y=y_coord;
     team_colour=colour;
+    is_alive = ALIVE;
 };
-
 bool bishop::move(int new_x, int new_y){
     if ((current_x - new_x !=0) && (current_y-new_y!=0)){
         return 0;
@@ -118,9 +120,8 @@ knight::knight(int x_coord, int y_coord, int colour){
     current_x = x_coord;
     current_y=y_coord;
     team_colour = colour;
+    is_alive = ALIVE;
 };
-
-
 bool knight::move(int new_x, int new_y){  
     if ((new_x == current_x - 1)&&((new_y == current_y -2)|(new_y == current_y+2))){
             current_x=new_x;
@@ -145,7 +146,4 @@ bool knight::move(int new_x, int new_y){
     };
 
     return 0;
-    };
-
-    
-    
+    };  

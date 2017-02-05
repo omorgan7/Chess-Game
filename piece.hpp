@@ -19,8 +19,7 @@ class piece {
         int get_x_coords();
         int get_y_coords();
         short getColour();
-        piece(int x, int y);
-        string PieceName;
+            string PieceName;
     private:
 
     protected:

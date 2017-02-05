@@ -7,9 +7,6 @@ void piece::hello_piece_world(void){
     cout<<"black = ♔♕♖♗♘♙\nwhite = ♚♛♜♝♞♟\n";
 };
 
-piece::piece(int x, int y){
-    current_x = x;
-    current_y = y;
 }
 
 int piece::get_x_coords(void){
@@ -36,7 +33,7 @@ pawn::pawn(int x_coord, int y_coord, int colour){
      PieceName = "BP";
 };
 bool pawn::move(int new_x, int new_y, piece *board){  
-    if (chessboard[new_x + 8*new_y] ! = nullptr){
+    if (board[new_x + 8*new_y] ! = nullptr){
         if (board[new_x + 8*new_y] -> getColour()==team_colour){
         return 0;
         }

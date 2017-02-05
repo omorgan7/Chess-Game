@@ -73,9 +73,11 @@ bool game::update_board_state(string move, int colour)
 void game::reset()
 {
 	cout << "Another game?\n";
+
 }
 
 bool game::CheckMate(int color) {
 	return 0;
+
 };
 

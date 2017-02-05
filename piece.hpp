@@ -18,13 +18,13 @@ class piece {
         int get_x_coords();
         int get_y_coords();
         short getColour();
-        string PieceName;
+            string PieceName;
     private:
 
     protected:
         void state(int);
-        int current_x;
-        int current_y;
+        int c_x;
+        int c_y;
         int team_colour;
         int piece_value; 
         piece *chessboard;   

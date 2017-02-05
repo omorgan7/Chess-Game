@@ -37,25 +37,22 @@ bool pawn::move(int new_x, int new_y, piece **board){
             if ((abs(new_x - current_x)==1)&&((new_y-current_y)!=1*team_colour)){
                 return 0;
             }
-            current_x=new_x;
-            current_y=new_y;
         return 1;
+        is_initial=0;
     }
    if (is_initial ==1){
         if ((new_x == current_x)&&((new_y==current_y+1*team_colour)|(new_y==current_y+2*team_colour))){
-            current_x=new_x;
-            current_y=new_y;
             is_initial=0;
             return 1;
         };
     };
 
     if ((new_x == current_x)&&((new_y-current_y)==1*team_colour)){
-        current_x=new_x;
-        current_y=new_y;
         return 1;
     };
+    return 0;
 };
+
 /////////////////////////////////
 //King Class
 king::king(int colour){

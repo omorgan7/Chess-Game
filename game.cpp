@@ -59,14 +59,16 @@ bool game::update_board_state(string move, int colour)
 	for (auto i = 0; i < whites.length; i++) {
 	if whites[i] = piece_moved
 	}*/
+	return 0;
 }
 
 void game::reset()
 {
 	cout << "Another game?\n";
+
 }
 
 bool game::CheckMate(int color) {
-
+return 0;
 };
 

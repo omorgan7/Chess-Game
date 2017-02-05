@@ -13,7 +13,6 @@ int piece::get_x_coords(void){
 int piece::get_y_coords(void){
     return current_y;
 }
-
 short piece::getColour(void){
     return team_colour;
 }
@@ -30,8 +29,8 @@ pawn::pawn(int x_coord, int y_coord, int colour){
     }
      PieceName = "BP";
 };
-bool pawn::move(int new_x, int new_y, piece *board){  
-    if (board[new_x + 8*new_y] ! = nullptr){
+bool pawn::move(int new_x, int new_y, piece **board){  
+    if (board[new_x + 8*new_y] != nullptr){
         if (board[new_x + 8*new_y] -> getColour()==team_colour){
         return 0;
         }

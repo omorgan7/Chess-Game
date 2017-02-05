@@ -50,7 +50,7 @@ bool pawn::move(int new_x, int new_y, piece **board){
         };
     };
 
-    if ((new_x == current_x)&&((new_y-current_y)=1*team_colour)){
+    if ((new_x == current_x)&&((new_y-current_y)==1*team_colour)){
         current_x=new_x;
         current_y=new_y;
         return 1;
@@ -60,7 +60,6 @@ bool pawn::move(int new_x, int new_y, piece **board){
 //King Class
 king::king(int colour){
     team_colour=colour;
-    is_alive = ALIVE;
     if(team_colour== WHITE){
         current_x= 3;
         current_y= 0;
@@ -71,8 +70,8 @@ king::king(int colour){
         current_y= 7;
         PieceName = "BK";
 };
-bool king::move( int new_x, int new_y, piece *board){
-         if (board[new_x + 8*new_y] ! = nullptr){
+bool king::move( int new_x, int new_y, piece **board){
+         if (board[new_x + 8*new_y] != nullptr){
             if (board[new_x + 8*new_y]->getColour()==team_colour){
                 return 0;
             }
@@ -100,14 +99,14 @@ queen::queen(int colour){
     current_y=7;
     PieceName = "BQ";
 };
-bool queen::move(int new_x, int new_y, piece *board){
-    if (board[new_x + 8*new_y] ! = nullptr){
+bool queen::move(int new_x, int new_y, piece **board){
+    if (board[new_x + 8*new_y] != nullptr){
             if (board[new_x + 8*new_y] -> getColour()==team_colour){
                 return 0;
             }
     }
-    for (auto i = current_x + 8*current_y, auto i = new_x + 8*new_y, current_x + 8*current_y < new_x + 8*new_y) ? i++ : i--){
-        if (board[i] ! = nullptr){
+    for (auto i = current_x + 8*current_y; i != new_x + 8*new_y; current_x + 8*current_y < new_x + 8*new_y ? i++ : i--){
+        if (board[i] != nullptr){
             return 0;
         }
     }
@@ -130,19 +129,18 @@ rook::rook(int x_coord, int y_coord, int colour){
     }
     PieceName = "BR";
 };
-bool rook::move(int new_x, int new_y, piece *board){
-    if (board[new_x + 8*new_y] ! = nullptr){
+bool rook::move(int new_x, int new_y, piece **board){
+    if (board[new_x + 8*new_y] != nullptr){
             if (board[new_x + 8*new_y] -> getColour()==team_colour){
                 return 0;
             }
     }
-     for (auto i = current_x + 8*current_y, auto i = new_x + 8*new_y, current_x + 8*current_y < new_x + 8*new_y) ? i++ : i--){
-            if (board[i] ! = nullptr){
+     for (auto i = current_x + 8*current_y; i != new_x + 8*new_y; current_x + 8*current_y < new_x + 8*new_y ? i++ : i--){
+            if (board[i] != nullptr){
                 return 0;
             }
     }  
      
-    } 
     if ((current_x - new_x !=0) && (current_y-new_y!=0)){
         return 0;
     };
@@ -162,14 +160,14 @@ bishop::bishop(int x_coord, int y_coord, int colour){
     }
     PieceName ="BB";
 };
-bool bishop::move(int new_x, int new_y, piece *board){
-    if (board[new_x + 8*new_y] ! = nullptr){
+bool bishop::move(int new_x, int new_y, piece **board){
+    if (board[new_x + 8*new_y] != nullptr){
             if (board[new_x + 8*new_y] -> getColour()==team_colour){
                 return 0;
             }
     }
-    for (auto i = current_x + 8*current_y, auto i = new_x + 8*new_y, current_x + 8*current_y < new_x + 8*new_y) ? i++ : i--){
-        if (board[i] ! = nullptr){
+    for (auto i = current_x + 8*current_y; i != new_x + 8*new_y; current_x + 8*current_y < new_x + 8*new_y ? i++ : i--){
+        if (board[i] != nullptr){
             return 0;
         }
     }
@@ -198,14 +196,14 @@ knight::knight(int x_coord, int y_coord, int colour){
     }
     PieceName = "BN";
 };
-bool knight::move(int new_x, int new_y, piece *board){  
-    if (board[new_x + 8*new_y] ! = nullptr){
+bool knight::move(int new_x, int new_y, piece **board){  
+    if (board[new_x + 8*new_y] != nullptr){
             if (board[new_x + 8*new_y] -> getColour()==team_colour){
                 return 0;
             }
     }
-    for (auto i = current_x + 8*current_y, auto i = new_x + 8*new_y, current_x + 8*current_y < new_x + 8*new_y) ? i++ : i--){
-        if (board[i] ! = nullptr){
+    for (auto i = current_x + 8*current_y; i != new_x + 8*new_y; current_x + 8*current_y < new_x + 8*new_y ? i++ : i--){
+        if (board[i] != nullptr){
             return 0;
         }
     }

@@ -12,7 +12,7 @@ using namespace std;
 
 class piece {
     public:
-        virtual bool move(int new_x, int new_y)=0;
+        virtual bool move(int new_x, int new_y, piece **board)=0;
         void hello_piece_world(void);
         void score();        
         int get_x_coords();

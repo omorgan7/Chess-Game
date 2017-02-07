@@ -213,6 +213,7 @@ bool knight::move(int new_x, int new_y, piece **board){
                 return 0;
             }
     }
+
     if ((new_x == c_x - 1)&&((new_y == c_y -2)|(new_y == c_y+2))){
             c_x=new_x;
             c_y=new_y;
@@ -232,6 +233,7 @@ bool knight::move(int new_x, int new_y, piece **board){
     if ((new_x == c_x + 2)&&((new_y == c_y -1)|(new_y == c_y+1))){
             c_x=new_x;
             c_y=new_y;
+
         return 1;
     };
 

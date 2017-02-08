@@ -23,7 +23,7 @@ int piece::get_piece_value(void){
     return piece_value;
 }
 /////////////////////////////////////////
-//PAWN CLASS
+//Pawn Class
 pawn::pawn(int x_coord, int y_coord, int colour){
     c_x = x_coord;
     c_y=y_coord;

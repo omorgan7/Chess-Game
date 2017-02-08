@@ -52,25 +52,25 @@ bool game::update_board_state(string move, int colour)
 	white_pawns = "WPWPWPWPWPWPWPWP";
 	black_pieces = "BRBNBBBKBQBBBNBR";
 	black_pawns = "BPBPBPBPBPBPBPBP";
-	if (move.length() == 3) {
-		switch (move.at(0)) {
-			case 'R':
-				rook.move(letters.find(to_string(move.at(1))), move.at(2), &B);
-				break;
-			case 'K':
-				knight.move(letters.find(to_string(move.at(1))), move.at(2));
-				break;
-			case 'B':
-				bishop.move(letters.find(to_string(move.at(1))), move.at(2));
-				break;
-			case 'K':
-				king.move(letters.find(to_string(move.at(1))), move.at(2));
-				break;
-			case 'Q':
-				queen.move(letters.find(to_string(move.at(1))), move.at(2));
-				break;
-		}
-	}
+	// if (move.length() == 3) {
+	// 	switch (move.at(0)) {
+	// 		case 'R':
+	// 			rook.move(letters.find(to_string(move.at(1))), move.at(2), &B);
+	// 			break;
+	// 		case 'K':
+	// 			knight.move(letters.find(to_string(move.at(1))), move.at(2));
+	// 			break;
+	// 		case 'B':
+	// 			bishop.move(letters.find(to_string(move.at(1))), move.at(2));
+	// 			break;
+	// 		case 'K':
+	// 			king.move(letters.find(to_string(move.at(1))), move.at(2));
+	// 			break;
+	// 		case 'Q':
+	// 			queen.move(letters.find(to_string(move.at(1))), move.at(2));
+	// 			break;
+	// 	}
+	// }
 	/*if (move.length == 3) {
 		if (move.at(0) == 'R') {
 			rook.move(letters.find(to_string(move.at(1))), letters.find(to_string(move.at(2))));

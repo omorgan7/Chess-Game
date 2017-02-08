@@ -55,7 +55,7 @@ bool game::update_board_state(string move, int colour)
 	if (move.length() == 3) {
 		switch (move.at(0)) {
 			case 'R':
-				rook.move(letters.find(to_string(move.at(1))), move.at(2));
+				rook.move(letters.find(to_string(move.at(1))), move.at(2), &B);
 				break;
 			case 'K':
 				knight.move(letters.find(to_string(move.at(1))), move.at(2));

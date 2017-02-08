@@ -7,6 +7,18 @@
 #define BLACK 1
 #define ALIVE 1
 #define OUT 0
+#define piece_pawn 0
+#define piece_rook 1
+#define piece_knight 2
+#define piece_bishop 3
+#define piece_queen 4
+#define piece_king 5
+#define pawn_value 1
+#define rook_value 5
+#define knight_value 3
+#define bishop_value 5
+#define queen_value 9
+
 
 using namespace std;
 
@@ -15,18 +27,20 @@ class piece {
         virtual bool move(int new_x, int new_y, piece **board)=0;
         void hello_piece_world(void);
         void score();        
-        int get_x_coords();
-        int get_y_coords();
-        short getColour();
-            string PieceName;
+        int get_x_coords(void);
+        int get_y_coords(void);
+        int get_piece_type(void);
+        int get_piece_value(void);
+        short getColour(void);
+        string PieceName;
     private:
-
     protected:
         void state(int);
         int c_x;
         int c_y;
         int team_colour;
         int piece_value; 
+        int piece_type;
         piece *chessboard;   
 };
 

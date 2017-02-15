@@ -52,16 +52,44 @@ void game::display_board_state(void) {
 bool game::update_board_state(string move, int colour)
 // Takes in inputted move, and uses this to update board e.g. BNc3
 {
-
+	string col_char
+	if (colour == -1) {
+		col_char = "W";
+	}
+	else if (colour == 1) {
+		col_char = "B";
+	}
+	else {
+		cout << "Need valid colour biatch!";
+	}
 	string letters = "abcdefgh";
 	white_pieces = "WRWNWBWKWQWBWNWR";
 	white_pawns = "WPWPWPWPWPWPWPWP";
 	black_pieces = "BRBNBBBKBQBBBNBR";
 	black_pawns = "BPBPBPBPBPBPBPBP";
+	int x = letters.find(to_string(move.at(1)));
+	int y = atoi(move.at(2).c_str());
 	if (move.length() == 3) {
+		for (auto i = 0; i < 64; i++) {
+			if B.chess_board[i]->PieceName == col_char + to_string(move.at(0)) {
+				B.chess_board[x + 8 * y]->move(x, y, &(B.chess_board));
+			}
+			else {
+				continue;
+			}
+		}
+	}
+	else if (move.length() == 4) {
+		for (auto i = 0; i < 64; i++) {
+
+		}
+	}
+		/*int x = letters.find(to_string(move.at(1)));
+		int y = atoi(move.at(2).c_str());
 		switch (move.at(0)) {
 			case 'R':
-				rook.move(letters.find(to_string(move.at(1))), atoi(move.at(2).c_str()), &B);
+				B.chess_board[x + 8 * y]->move(x, y, &(B.chess_board));
+				rook.move(letters.find(to_string(move.at(1))), atoi(move.at(2).c_str()));
 				break;
 			case 'K':
 				knight.move(letters.find(to_string(move.at(1))), atoi(move.at(2).c_str()));
@@ -76,7 +104,7 @@ bool game::update_board_state(string move, int colour)
 				queen.move(letters.find(to_string(move.at(1))), atoi(move.at(2).c_str()));
 				break;
 		}
-	}
+	}/*
 	/*if (move.length == 3) {
 		if (move.at(0) == 'R') {
 			rook.move(letters.find(to_string(move.at(1))), letters.find(to_string(move.at(2))));

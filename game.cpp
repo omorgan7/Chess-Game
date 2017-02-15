@@ -64,11 +64,12 @@ bool game::update_board_state(string move, int colour)
 	black_pieces = "BRBNBBBKBQBBBNBR";
 	black_pawns = "BPBPBPBPBPBPBPBP";
 	int x = letters.find(to_string(move.at(1)));
-	int y = atoi(move.at(2).c_str());
-	if (move.length() == 3) {
-		for (auto i = 0; i < 64; i++) {
-			if B.chess_board[i]->PieceName == col_char + to_string(move.at(0)) {
-				B.chess_board[x + 8 * y]->move(x, y, &(B.chess_board));
+	int y = atoi((const char*) move[2]);//needs debugging
+	int y = 0;
+	if(move.length() == 3) {
+		for (auto i = 0; i < 64; i++){
+			if(B.chess_board[i]->PieceName == (col_char + to_string(move.at(0)))){
+				B.chess_board[x + 8 * y]->move(x, y, B.chess_board);
 			}
 			else {
 				continue;

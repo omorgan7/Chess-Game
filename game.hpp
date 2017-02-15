@@ -3,7 +3,7 @@
 #include<iostream>
 #include<string>
 #include<regex>
-#include<list>
+#include<vector>
 
 using namespace std;
 
@@ -16,9 +16,11 @@ class game {
         void process_input(int color);
         bool Check(int color);
         bool CheckMate(int color);
-        bool SearchKingSpace(int color);
+        bool SearchKingSpace(void);
 	bool update_board_state(string move, int colour);
         void initialiseKingPosition(void);
+        bool CanBeKilled(int index);
+        bool CanBeBlocked(int index);
 	void reset();
 
     private:

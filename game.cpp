@@ -2,7 +2,7 @@
 #include "piece.hpp"
 #include "board.hpp"
 const regex expression("([RNBKQP])([abcdefg])([12345678])([=])([RNBKQP])|([RNBKQP])([abcdefg])([12345678])|([RNBKQP])([abcdefg]|[12345678])([abcdefg])([12345678])");
-const int SearchIntervals[] = {-9,-8,-7,-1,+1,7,8,9};
+const int SearchIntervals[] = {-9,-8,-7,-1,1,7,8,9};
 
 Board B;
 
@@ -123,35 +123,60 @@ void game::initialiseKingPosition(void){
 	white_king_index = 59;
 }
 
-bool game::CheckMate(int color) {
+bool game::CheckMate(int color){
 //Assumption: King should already be in check when this function is called.
-
-	if(SearchKingSpace(color) == 1){
-		return 0;
-	}
-
-	return 0;
-
-}
-
-bool game::SearchKingSpace(int color){
 	if(color==WHITE){
 		king_index = white_king_index;
 	}
 	else{
 		king_index = black_king_index;
 	}
+	
+	if(SearchKingSpace() == 1){
+		return 0;
+	}
+	vector<int> AttackingPieceIndices;
+	for(auto i = 0; i<63; i++){
+		if(B.chess_board[i] != nullptr){
+			if(B.chess_board[i]->move(king_index%8,king_index/8,B.chess_board)==1){
+				AttackingPieceIndices.push_back(i);
+			}
+		}
+	}
+	if(AttackingPieceIndices.size()>1){
+		return 1;
+	}
+	if(CanBeKilled(AttackingPieceIndices[0])==1){
+		return 0;
+	}
+	if(B.chess_board[AttackingPieceIndices[0]]->PieceName[1] == 'N'){
+		return 1;
+	}
+	return !CanBeBlocked(AttackingPieceIndices[0]);
+}
+
+bool game::SearchKingSpace(void){
 	for(auto i = 0; i<8; i++){
 		auto index = SearchIntervals[i]+king_index;
 		if(index >= 0 && index <= 63){
 			if(B.chess_board[index]==nullptr){
+				//run the check function here, return 0 if check returns true.
 				return 1;
 			}
 			if(B.chess_board[index]->move(index%8,index/8,B.chess_board)==1){
+				//run the check function here too, same as above.
 				return 1;
 			}
 		}
 	}
 	return 0;
-};
+}
+
+bool game::CanBeKilled(int index){
+
+}
+
+bool game::CanBeBlocked(int index){
+	
+}
 

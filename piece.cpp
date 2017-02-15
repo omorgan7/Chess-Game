@@ -115,11 +115,11 @@ bool king::move( int new_x, int new_y, piece **board){
         if (board[new_x + 8*new_y]->getColour()==team_colour){
             return 0;
         }
-    }    
-    if (((c_x-new_x != 1)&&(c_x-new_x != -1))|((c_y-new_y != 1)&&(c_y-new_y != -1))){
-        return 0;
-    };
-    return 1;
+    }  
+    if((abs(c_x-new_x)<2)&& (abs(c_y-new_y)<2)){
+        return 1;
+    }
+     return 0;
 };
 
 ///////////////////////////

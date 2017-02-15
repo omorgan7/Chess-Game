@@ -52,22 +52,29 @@ bool pawn::move(int new_x, int new_y, piece **board){
     std::cout<<"in fun \n" ;
     if (board[new_x + 8*new_y] != nullptr){
         if (board[new_x + 8*new_y] -> getColour()==team_colour){
-        return 0;
+            return 0;
         }
-            if ((abs(new_x - c_x)==1)&&((new_y-c_y)!=1*team_colour)){
+        std::cout<<"line 57 \n" ;
+        if ((abs(new_x - c_x)==1)&&((new_y-c_y)!=1*team_colour)){
                 return 0;
             }
         return 1;
         is_initial=0;
+          std::cout<<"line 58 \n" ;
     }
    if (is_initial ==1){
+       std::cout<<"line 66 \n";
+       std::cout<<"cy + team colour"<<c_y+1*team_colour<<'\n';
+       std::cout<<"cy"<<c_y<<'\n';
+       std::cout<<"team colour"<<team_colour<<'\n';
         if ((new_x == c_x)&&((new_y==c_y+1*team_colour)|(new_y==c_y+2*team_colour))){
             is_initial=0;
+            std::cout<<"line 69 \n";
             return 1;
         };
     };
 
-    if ((new_x == c_x)&&((new_y-c_y)==1*team_colour)){
+    if ((new_x == c_x)&&((new_y-c_y)==-1*team_colour)){
         return 1;
     };
     return 0;

@@ -14,10 +14,14 @@ class game {
         void display_board_state(void);
         void print_chessboard_line(string *statestring);
         void process_input(int color);
+        bool Check(int color);
         bool CheckMate(int color);
-		bool update_board_state(string move, int colour);
+        bool SearchKingSpace(int color);
+        bool update_board_state(string move, int colour);
         void initialiseKingPosition(void);
-		void reset();
+        void reset();
+        bool check_lineof_sight(int colour);
+        bool check_knights(int colour);
 
     private:
         string white_pieces; 
@@ -27,6 +31,7 @@ class game {
         string black_pawns;
         int black_king_index;
         int white_king_index;
+        int king_index;
 
 };
 

@@ -29,7 +29,6 @@ pawn::pawn(int x_coord, int y_coord, int colour){
     c_y=y_coord;
     team_colour = colour;
     is_initial=1;
-    piece_type=piece_pawn;
     piece_value = pawn_value;
     if (team_colour == WHITE){
         PieceName = "WP";
@@ -65,7 +64,6 @@ bool pawn::move(int new_x, int new_y, piece **board){
 //King Class
 king::king(int colour){
     team_colour=colour;
-    piece_type = piece_king;
     if(team_colour== WHITE){
         c_x= 3;
         c_y= 0;
@@ -85,8 +83,6 @@ bool king::move( int new_x, int new_y, piece **board){
         if (((c_x-new_x != 1)&&(c_x-new_x != -1))|((c_y-new_y != 1)&&(c_y-new_y != -1))){
             return 0;
         };
-    c_x=new_x;
-    c_y=new_y;
     return 1;
 };
 
@@ -95,7 +91,6 @@ bool king::move( int new_x, int new_y, piece **board){
 
 queen::queen(int colour){
     team_colour=colour;
-    piece_type=piece_queen;
     piece_value = queen_value;
     if (colour==WHITE){
         c_x=4;
@@ -141,7 +136,6 @@ rook::rook(int x_coord, int y_coord, int colour){
     c_x=x_coord;
     c_y=y_coord;
     team_colour = colour;
-    piece_type = piece_rook;
     piece_value = rook_value;
     if (team_colour==WHITE){
         PieceName="WR";
@@ -165,8 +159,6 @@ bool rook::move(int new_x, int new_y, piece **board){
     if ((c_x - new_x !=0) && (c_y-new_y!=0)){
         return 0;
     };
-    c_x=new_x;
-    c_y=new_y;
     return 1;
 };
 //////////////////////
@@ -175,7 +167,6 @@ bishop::bishop(int x_coord, int y_coord, int colour){
     c_x=x_coord;
     c_y=y_coord;
     team_colour=colour;
-    piece_type=piece_bishop;
     piece_value = bishop_value;
     if (team_colour==WHITE){
         PieceName = "WB";
@@ -206,8 +197,6 @@ bool bishop::move(int new_x, int new_y, piece **board){
     if (((c_x - new_x ==0) && (c_y-new_y!=0))|((c_x - new_x !=0) && (c_y-new_y!=0))){
         return 0;
     };
-    c_x=new_x;
-    c_y=new_y;
     return 1;
 };
 /////////////////
@@ -216,7 +205,6 @@ knight::knight(int x_coord, int y_coord, int colour){
     c_x = x_coord;
     c_y=y_coord;
     team_colour = colour;
-    piece_type = piece_knight;
     piece_value = knight_value ;
     if (team_colour==WHITE){
         PieceName = "WN";
@@ -232,25 +220,15 @@ bool knight::move(int new_x, int new_y, piece **board){
     }
 
     if ((new_x == c_x - 1)&&((new_y == c_y -2)|(new_y == c_y+2))){
-            c_x=new_x;
-            c_y=new_y;
         return 1;
     }  ;
     if ((new_x == c_x - 2)&&((new_y == c_y -1)|(new_y == c_y+1))){
-            c_x=new_x;
-            c_y=new_y;
         return 1;
     };
     if ((new_x == c_x + 1)&&((new_y == c_y -2)|(new_y == c_y+2))){
-            c_x=new_x;
-            c_y=new_y;
-
         return 1;
     }  ;
     if ((new_x == c_x + 2)&&((new_y == c_y -1)|(new_y == c_y+1))){
-            c_x=new_x;
-            c_y=new_y;
-
         return 1;
     };
 

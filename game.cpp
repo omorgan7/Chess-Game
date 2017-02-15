@@ -2,7 +2,8 @@
 #include "piece.hpp"
 #include "board.hpp"
 const regex expression("([RNBKQP])([abcdefg])([12345678])([=])([RNBKQP])|([RNBKQP])([abcdefg])([12345678])|([RNBKQP])([abcdefg]|[12345678])([abcdefg])([12345678])");
-const auto SearchIntervals[] = {-9,-8,-7,-1,+1,7,8,9};
+const int SearchIntervals[] = {-9,-8,-7,-1,+1,7,8,9};
+const int KnightIntervals[]={-25,-23,-18, -14, 14, 18, 23, 25};
 
 Board B;
 
@@ -48,7 +49,55 @@ void game::display_board_state(void) {
     cout<<"|\n";
 }
 
+bool game::Check(int colour){
+	if (colour == WHITE){
+		king_index=white_king_index;
+	}
+	else{
+		king_index=black_king_index;
+	}
+	if(check_lineof_sight(colour)==1){
+		return 1;
+	}
+	if(check_knights(colour)==1){
+		return 1;
+	}
+	return 0;
+}
+	
+bool game::check_lineof_sight(int colour){
+	for (auto j = 1; j<9; j++){
+		for(auto i = 0; i<8; i++){
+			auto index = j*SearchIntervals[i]+king_index;
+			if(index >= 0 && index <= 63){
+				if(B.chess_board[index]!=nullptr){
+					if (B.chess_board[index]->getColour() != colour){
+						if(B.chess_board[index]->move(index%8,index/8,B.chess_board)==1){
+							return 1;
+						}		
+					}
+				}
+			}
+		}
+	}
+	return 0;
+}
 
+bool game::check_knights(int colour){
+	for (auto i = 0; i<8; i++){
+		auto index = KnightIntervals[i]+king_index;
+		if(index >= 0 && index <= 63){	
+			if(B.chess_board[index]!=nullptr){
+				if (B.chess_board[index]->getColour() != colour){
+					if(B.chess_board[index]->PieceName[1]=='N'){
+						return 1;
+					}		
+				}
+			}
+		}
+	}
+	return 0;
+}
 bool game::update_board_state(string move, int colour)
 // Takes in inputted move, and uses this to update board e.g. BNc3
 {
@@ -136,10 +185,12 @@ void game::initialiseKingPosition(void){
 }
 
 bool game::CheckMate(int color) {
+//Assumption: King should already be in check when this function is called.
 
 	if(SearchKingSpace(color) == 1){
 		return 0;
 	}
+
 	return 0;
 
 }
@@ -151,6 +202,17 @@ bool game::SearchKingSpace(int color){
 	else{
 		king_index = black_king_index;
 	}
-	
+	for(auto i = 0; i<8; i++){
+		auto index = SearchIntervals[i]+king_index;
+		if(index >= 0 && index <= 63){
+			if(B.chess_board[index]==nullptr){
+				return 1;
+			}
+			if(B.chess_board[index]->move(index%8,index/8,B.chess_board)==1){
+				return 1;
+			}
+		}
+	}
+	return 0;
 };
 

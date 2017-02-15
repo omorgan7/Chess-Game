@@ -2,6 +2,8 @@
 #include "piece.hpp"
 #include "board.hpp"
 const regex expression("([RNBKQP])([abcdefg])([12345678])([=])([RNBKQP])|([RNBKQP])([abcdefg])([12345678])|([RNBKQP])([abcdefg]|[12345678])([abcdefg])([12345678])");
+const auto SearchIntervals[] = {-9,-8,-7,-1,+1,7,8,9};
+
 Board B;
 
 game::game(){
@@ -106,7 +108,21 @@ void game::initialiseKingPosition(void){
 }
 
 bool game::CheckMate(int color) {
+
+	if(SearchKingSpace(color) == 1){
+		return 0;
+	}
 	return 0;
 
+}
+
+bool game::SearchKingSpace(int color){
+	if(color==WHITE){
+		king_index = white_king_index;
+	}
+	else{
+		king_index = black_king_index;
+	}
+	
 };
 

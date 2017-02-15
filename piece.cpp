@@ -59,6 +59,10 @@ bool pawn::move(int new_x, int new_y, piece **board){
     };
     return 0;
 };
+bool pawn::en_passant(int new_x, int new_y, piece **board){
+    if((new_x = c_x)&&(new_y = c_y + team_colour)){}
+    return 0;
+}
 
 /////////////////////////////////
 //King Class
@@ -75,9 +79,16 @@ king::king(int colour){
         PieceName = "BK";
         is_initial = 1;
 };
-bool king::castling( int new_x, int new_y, piece **board, int side){
+bool king::castling(piece **board, int side){
     int index = c_x+8*c_y;
-    if ((board[index]->get_is_initial() == 0)|(board[index+side]->get_is_initial() == 0)|(board[new_x+8*new_y]!=nullptr)){
+    int new_pos;
+    if (side==queenside){
+        int new_pos = 2;
+    }
+    else{
+        int new_pos = 6;
+    }
+    if ((board[index]->get_is_initial() == 0)|(board[index+side]->get_is_initial() == 0)|(board[new_pos]!=nullptr)){
         return 0;
     }
     return 1;

@@ -53,7 +53,7 @@ class king: public piece{
         king(int colour);
         void reset(void);
         bool move(int new_x, int new_y, piece **board);
-        bool castling(int new_x, int new_y, piece **board, int side);
+        bool castling(piece **board, int side);
 };
 class bishop: public piece{
     public:
@@ -74,5 +74,6 @@ class pawn: public piece{
     public:
         pawn(int x_coord, int y_coord, int colour);
         bool move(int new_x, int new_y, piece **board);
+        bool en_passant(int new_x, int new_y, piece **board);
    };
 #endif 

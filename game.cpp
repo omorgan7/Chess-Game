@@ -83,43 +83,6 @@ bool game::update_board_state(string move, int colour)
 
 		}
 	}
-		/*int x = letters.find(to_string(move.at(1)));
-		int y = atoi(move.at(2).c_str());
-		switch (move.at(0)) {
-			case 'R':
-				B.chess_board[x + 8 * y]->move(x, y, &(B.chess_board));
-				rook.move(letters.find(to_string(move.at(1))), atoi(move.at(2).c_str()));
-				break;
-			case 'K':
-				knight.move(letters.find(to_string(move.at(1))), atoi(move.at(2).c_str()));
-				break;
-			case 'B':
-				bishop.move(letters.find(to_string(move.at(1))), atoi(move.at(2).c_str()));
-				break;
-			case 'K':
-				king.move(letters.find(to_string(move.at(1))), atoi(move.at(2).c_str()));
-				break;
-			case 'Q':
-				queen.move(letters.find(to_string(move.at(1))), atoi(move.at(2).c_str()));
-				break;
-		}
-	}/*
-	/*if (move.length == 3) {
-		if (move.at(0) == 'R') {
-			rook.move(letters.find(to_string(move.at(1))), letters.find(to_string(move.at(2))));
-		}
-		else if (move.at(0) == 'N') {
-			knight.move(letters.find(to_string(move.at(1))), letters.find(to_string(move.at(2))));
-		}
-	}*/
-
-	/*string piece_moved = move.at(0);
-	string new_coordinate = move.at(1) + move.at(2);
-	string whites[6] = { string R[2], string N[2], string B[2], string K[1], string Q[1], string P[8] };
-	string blacks[6] = { string R[2], string N[2], string B[2], string K[1], string Q[1], string P[8] };
-	for (auto i = 0; i < whites.length; i++) {
-	if whites[i] = piece_moved
-	}*/
 	return 0;
 }
 
@@ -210,13 +173,13 @@ bool game::CheckMate(int color){
 	if(AttackingPieceIndices.size()>1){
 		return 1;
 	}
-	if(CanBeKilled(AttackingPieceIndices[0])==1){
+	if(CanBeKilled(AttackingPieceIndices[0], color)==1){
 		return 0;
 	}
 	if(B.chess_board[AttackingPieceIndices[0]]->PieceName[1] == 'N'){
 		return 1;
 	}
-	return !CanBeBlocked(AttackingPieceIndices[0]);
+	return !CanBeBlocked(AttackingPieceIndices[0], color);
 }
 
 bool game::SearchKingSpace(int color){
@@ -249,11 +212,64 @@ void game::SetKingColorIndex(int color){
 	}
 }
 
-bool game::CanBeKilled(int index){
-	for(auto i = 0; i<64)
+bool game::CanBeKilled(int index,int color){
+	for(auto i = 0; i<64; i++){
+		if(B.chess_board[i]!=nullptr){
+			if(B.chess_board[i]->move(index%8,index/8,B.chess_board)==1){
+				auto temp_ptr = B.chess_board[i];
+				B.chess_board[i] = nullptr;
+				if(Check(color,index%8, index/8)==0){
+					B.chess_board[i] = temp_ptr;
+					return 1;
+				}
+				B.chess_board[i] = temp_ptr;
+			}
+		}	
+	}
 }
 
-bool game::CanBeBlocked(int index){
-	
+bool game::CanBeBlocked(int index, int color){
+	SetKingColorIndex(color);
+	auto king_x = king_index%8;
+	auto king_y = king_index/8;
+	auto attacker_x = index%8;
+	auto attacker_y = index/8;
+	if ((attacker_x==king_x)|(attacker_y==king_y)){
+        auto it = (attacker_x-king_x)*pow(-1, attacker_x<king_x)+8*(attacker_y-king_y)*pow(-1, attacker_y<king_y);
+        for (auto i = king_x + 8*king_y; i != attacker_x + 8*attacker_y; i+=it){
+			for(auto j =0; j<64; j++){
+				if(B.chess_board[j] != nullptr){
+					if(B.chess_board[j]->move(i%8, i/8,B.chess_board)==1){
+						auto temp_ptr = B.chess_board[j];
+						B.chess_board[j] = nullptr;
+						if(Check(color)==0){
+							B.chess_board[j] = temp_ptr;
+							return 1;
+						}
+						B.chess_board[j] = temp_ptr;
+					}
+				}
+			}
+        }  
+    }
+    else{
+        auto it = 8*pow(-1,attacker_y>king_y);
+        it = it+pow(-1,attacker_x<king_x);
+        for (auto i = king_x + 8*king_y; i != attacker_x + 8*attacker_y; i+=it){
+			for(auto j =0; j<64; j++){
+				if(B.chess_board[j] != nullptr){
+					if(B.chess_board[j]->move(i%8, i/8,B.chess_board)==1){
+						auto temp_ptr = B.chess_board[j];
+						B.chess_board[j] = nullptr;
+						if(Check(color)==0){
+							B.chess_board[j] = temp_ptr;
+							return 1;
+						}
+						B.chess_board[j] = temp_ptr;
+					}
+				}
+			}
+        }   
+    }
 }
 

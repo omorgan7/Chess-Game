@@ -19,6 +19,9 @@ short piece::getColour(void){
 int piece::get_piece_value(void){
     return piece_value;
 }
+int piece::get_is_initial(void){
+    return is_initial;
+}
 /////////////////////////////////////////
 //Pawn Class
 pawn::pawn(int x_coord, int y_coord, int colour){
@@ -70,16 +73,25 @@ king::king(int colour){
         c_x= 3;
         c_y= 7;
         PieceName = "BK";
+        is_initial = 1;
 };
+bool king::castling( int new_x, int new_y, piece **board, int side){
+    int index = c_x+8*c_y;
+    if ((board[index]->get_is_initial() == 0)|(board[index+side]->get_is_initial() == 0)|(board[new_x+8*new_y]!=nullptr)){
+        return 0;
+    }
+    return 1;
+}
 bool king::move( int new_x, int new_y, piece **board){
-         if (board[new_x + 8*new_y] != nullptr){
-            if (board[new_x + 8*new_y]->getColour()==team_colour){
-                return 0;
-            }
-         }    
-        if (((c_x-new_x != 1)&&(c_x-new_x != -1))|((c_y-new_y != 1)&&(c_y-new_y != -1))){
+    is_initial=0;
+    if (board[new_x + 8*new_y] != nullptr){
+        if (board[new_x + 8*new_y]->getColour()==team_colour){
             return 0;
-        };
+        }
+    }    
+    if (((c_x-new_x != 1)&&(c_x-new_x != -1))|((c_y-new_y != 1)&&(c_y-new_y != -1))){
+        return 0;
+    };
     return 1;
 };
 

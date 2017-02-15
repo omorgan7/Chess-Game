@@ -3,7 +3,7 @@
 #include "board.hpp"
 const regex expression("([RNBKQP])([abcdefg])([12345678])([=])([RNBKQP])|([RNBKQP])([abcdefg])([12345678])|([RNBKQP])([abcdefg]|[12345678])([abcdefg])([12345678])");
 const int SearchIntervals[] = {-9,-8,-7,-1,+1,7,8,9};
-const int KnightIntervals[]={-25,-23,-18, -14, 14, 18, 23, 25};
+const int KnightIntervals[]={-17, -15,-10,-6, 6, 10, 15, 17};
 Board B;
 
 game::game(){
@@ -51,7 +51,7 @@ void game::display_board_state(void) {
 bool game::update_board_state(string move, int colour)
 // Takes in inputted move, and uses this to update board e.g. BNc3
 {
-	string col_char
+	string col_char;
 	if (colour == -1) {
 		col_char = "W";
 	}

@@ -51,28 +51,24 @@ void game::display_board_state(void) {
 
 bool game::Check(int colour){
 	if (colour == WHITE){
-	king_index=white_king_index;
-		if(check_lineof_sight(WHITE)==1){
-			return 1;
-		}
-		if(check_knights(WHITE)==1){
-			return 1;
-		}
+		king_index=white_king_index;
 	}
-	if (colour == BLACK){
-	king_index=white_king_index;
-		if(check_lineof_sight(BLACK)==1){
-			return 1;
-		}
-		if(check_knights(BLACK)==1){
-			return 1;
-		}
+	else{
+		king_index=black_king_index;
 	}
+	if(check_lineof_sight(colour)==1){
+		return 1;
+	}
+	if(check_knights(colour)==1){
+		return 1;
+	}
+	return 0;
 }
+	
 bool game::check_lineof_sight(int colour){
 	for (auto j = 1; j<9; j++){
 		for(auto i = 0; i<8; i++){
-			auto index = SearchIntervals[i*j]+king_index;
+			auto index = j*SearchIntervals[i]+king_index;
 			if(index >= 0 && index <= 63){
 				if(B.chess_board[index]!=nullptr){
 					if (B.chess_board[index]->getColour() != colour){

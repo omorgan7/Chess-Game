@@ -27,6 +27,7 @@ class piece {
         int get_piece_type(void);
         int get_piece_value(void);
         short getColour(void);
+        void basic(int x_coord, int y_coord, int colour);
         string PieceName;
         int get_is_initial(void);
         // int line_search_diagonal():
@@ -46,14 +47,14 @@ class piece {
 
 class queen: public piece{
     public:
-        queen(int colour);
+        queen(int x_coord, int y_coord, int colour);
         void reset(void);
         bool move (int new_x, int new_y, piece **board);
 
 };
 class king: public piece{
     public:
-        king(int colour);
+        king(int x_coord, int y_coord, int colour;
         void reset(void);
         bool move(int new_x, int new_y, piece **board);
         bool castling(piece **board, int side);

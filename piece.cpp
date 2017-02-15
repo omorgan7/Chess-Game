@@ -16,13 +16,21 @@ int piece::get_y_coords(void){
 short piece::getColour(void){
     return team_colour;
 }
+int piece::get_piece_type(void){
+    return piece_type;
+}
+int piece::get_piece_value(void){
+    return piece_value;
+}
 /////////////////////////////////////////
-//PAWN CLASS
+//Pawn Class
 pawn::pawn(int x_coord, int y_coord, int colour){
     c_x = x_coord;
     c_y=y_coord;
     team_colour = colour;
     is_initial=1;
+    piece_type=piece_pawn;
+    piece_value = pawn_value;
     if (team_colour == WHITE){
         PieceName = "WP";
     return;
@@ -57,6 +65,7 @@ bool pawn::move(int new_x, int new_y, piece **board){
 //King Class
 king::king(int colour){
     team_colour=colour;
+    piece_type = piece_king;
     if(team_colour== WHITE){
         c_x= 3;
         c_y= 0;
@@ -86,6 +95,8 @@ bool king::move( int new_x, int new_y, piece **board){
 
 queen::queen(int colour){
     team_colour=colour;
+    piece_type=piece_queen;
+    piece_value = queen_value;
     if (colour==WHITE){
         c_x=4;
         c_y=0;
@@ -130,6 +141,8 @@ rook::rook(int x_coord, int y_coord, int colour){
     c_x=x_coord;
     c_y=y_coord;
     team_colour = colour;
+    piece_type = piece_rook;
+    piece_value = rook_value;
     if (team_colour==WHITE){
         PieceName="WR";
         return;
@@ -162,6 +175,8 @@ bishop::bishop(int x_coord, int y_coord, int colour){
     c_x=x_coord;
     c_y=y_coord;
     team_colour=colour;
+    piece_type=piece_bishop;
+    piece_value = bishop_value;
     if (team_colour==WHITE){
         PieceName = "WB";
         return;
@@ -201,6 +216,8 @@ knight::knight(int x_coord, int y_coord, int colour){
     c_x = x_coord;
     c_y=y_coord;
     team_colour = colour;
+    piece_type = piece_knight;
+    piece_value = knight_value ;
     if (team_colour==WHITE){
         PieceName = "WN";
         return;

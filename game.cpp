@@ -59,17 +59,17 @@ bool game::update_board_state(string move, int colour)
 		col_char = "B";
 	}
 	string letters = "abcdefgh";
-	white_pieces = "WRWNWBWKWQWBWNWR";
-	white_pawns = "WPWPWPWPWPWPWPWP";
-	black_pieces = "BRBNBBBKBQBBBNBR";
-	black_pawns = "BPBPBPBPBPBPBPBP";
-	int x = letters.find(to_string(move.at(1)));
-	int y = atoi((const char*) move[2]);//needs debugging
-	int y = 0;
+	int x = letters.find(to_string(move[1]));
+	//int y = atoi((const char*) move[2]);//needs debugging
+	int y = stoi(move[2]);
 	if(move.length() == 3) {
 		for (auto i = 0; i < 64; i++){
-			if(B.chess_board[i]->PieceName == (col_char + to_string(move.at(0)))){
+			if(B.chess_board[i]->PieceName == (col_char + to_string(move[0]))) && B.chess_board[x + 8 * y]->move(x, y, B.chess_board) == True {
+				B.chessboard[i]->PieceName == nullptr;
 				B.chess_board[x + 8 * y]->move(x, y, B.chess_board);
+			}
+			else if (B.chess_board[x + 8 * y]->move(x, y, B.chess_board) == False {
+				return False;
 			}
 			else {
 				continue;
@@ -77,8 +77,14 @@ bool game::update_board_state(string move, int colour)
 		}
 	}
 	else if (move.length() == 4) {
+		int z;
 		for (auto i = 0; i < 64; i++) {
-
+			if (isdigit(move[1])){
+				z = stoi(move[1]);
+			}
+			else if{
+				z = letters.find(to_string(move[1]));
+			}
 		}
 	}
 	return 0;

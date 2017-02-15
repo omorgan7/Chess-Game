@@ -51,15 +51,12 @@ void game::display_board_state(void) {
 bool game::update_board_state(string move, int colour)
 // Takes in inputted move, and uses this to update board e.g. BNc3
 {
-	string col_char
-	if (colour == -1) {
+	string col_char;
+	if (colour == WHITE) {
 		col_char = "W";
 	}
-	else if (colour == 1) {
-		col_char = "B";
-	}
 	else {
-		cout << "Need valid colour biatch!";
+		col_char = "B";
 	}
 	string letters = "abcdefgh";
 	white_pieces = "WRWNWBWKWQWBWNWR";

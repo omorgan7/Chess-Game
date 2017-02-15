@@ -17,9 +17,11 @@ class game {
         bool Check(int color);
         bool CheckMate(int color);
         bool SearchKingSpace(int color);
-	bool update_board_state(string move, int colour);
+        bool update_board_state(string move, int colour);
         void initialiseKingPosition(void);
-	void reset();
+        void reset();
+        bool check_lineof_sight(int colour);
+        bool check_knights(int colour);
 
     private:
         string white_pieces; 

@@ -3,6 +3,7 @@
 #include "board.hpp"
 const regex expression("([RNBKQP])([abcdefg])([12345678])([=])([RNBKQP])|([RNBKQP])([abcdefg])([12345678])|([RNBKQP])([abcdefg]|[12345678])([abcdefg])([12345678])");
 const int SearchIntervals[] = {-9,-8,-7,-1,+1,7,8,9};
+const int KnightIntervals[]={-25,-23,-18, -14, 14, 18, 23, 25};
 
 Board B;
 
@@ -50,21 +51,57 @@ void game::display_board_state(void) {
 
 bool game::Check(int colour){
 	if (colour == WHITE){
-		int x= white_king_index%8;
-		int y= white_king_index/8;
-		for(int i = white_king_index -9; i<white_king_index+9; i++){
-			if (B.chessboard[i] !=nullptr){
-				if (B.chessboard[i]->getColour() != WHITE){
-					if(B.chessboard[i]->move(x,y,B.chessboard)==0){
-						return 1;
+	king_index=white_king_index;
+		if(check_lineof_sight(WHITE)==1){
+			return 1;
+		}
+		if(check_knights(WHITE)==1){
+			return 1;
+		}
+	}
+	if (colour == BLACK){
+	king_index=white_king_index;
+		if(check_lineof_sight(BLACK)==1){
+			return 1;
+		}
+		if(check_knights(BLACK)==1){
+			return 1;
+		}
+	}
+}
+bool game::check_lineof_sight(int colour){
+	for (auto j = 1; j<9; j++){
+		for(auto i = 0; i<8; i++){
+			auto index = SearchIntervals[i*j]+king_index;
+			if(index >= 0 && index <= 63){
+				if(B.chess_board[index]!=nullptr){
+					if (B.chess_board[index]->getColour() != colour){
+						if(B.chess_board[index]->move(index%8,index/8,B.chess_board)==1){
+							return 1;
+						}		
 					}
 				}
 			}
 		}
 	}
+	return 0;
 }
 
-
+bool game::check_knights(int colour){
+	for (auto i = 0; i<8; i++){
+		auto index = KnightIntervals[i]+king_index;
+		if(index >= 0 && index <= 63){	
+			if(B.chess_board[index]!=nullptr){
+				if (B.chess_board[index]->getColour() != colour){
+					if(B.chess_board[index]->PieceName[1]=='N'){
+						return 1;
+					}		
+				}
+			}
+		}
+	}
+	return 0;
+}
 bool game::update_board_state(string move, int colour)
 // Takes in inputted move, and uses this to update board e.g. BNc3
 {

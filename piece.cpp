@@ -146,6 +146,7 @@ rook::rook(int x_coord, int y_coord, int colour){
     c_y=y_coord;
     team_colour = colour;
     piece_value = rook_value;
+    is_initial=1;
     if (team_colour==WHITE){
         PieceName="WR";
         return;
@@ -153,6 +154,7 @@ rook::rook(int x_coord, int y_coord, int colour){
     PieceName = "BR";
 };
 bool rook::move(int new_x, int new_y, piece **board){
+    is_initial = 0;
     if (board[new_x + 8*new_y] != nullptr){
             if (board[new_x + 8*new_y] -> getColour()==team_colour){
                 return 0;

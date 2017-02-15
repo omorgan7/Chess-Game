@@ -9,6 +9,7 @@ Board B;
 
 game::game(){
 	initialiseKingPosition();
+	initialiseScore();
 }
 
 void game::process_input(int color) {
@@ -98,6 +99,16 @@ bool game::check_knights(int colour){
 	}
 	return 0;
 }
+
+void game::score(int colour, int index){
+	int increase = B.chess_board[index]->get_piece_value();
+	if (colour == WHITE){
+		white_score = white_score + increase;
+	}
+	else{
+		black_score = black_score + increase;
+	}
+}
 bool game::update_board_state(string move, int colour)
 // Takes in inputted move, and uses this to update board e.g. BNc3
 {
@@ -151,6 +162,10 @@ void game::reset()
 
 }
 
+void game::initialiseScore(void){
+	white_score = 0;
+	black_score = 0;
+}
 void game::initialiseKingPosition(void){
 	black_king_index = 3;
 	white_king_index = 59;

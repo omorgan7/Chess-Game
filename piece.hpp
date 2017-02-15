@@ -10,7 +10,7 @@
 #define pawn_value 1
 #define rook_value 5
 #define knight_value 3
-#define bishop_value 5
+#define bishop_value 3
 #define queen_value 9
 
 
@@ -19,8 +19,7 @@ using namespace std;
 class piece {
     public:
         virtual bool move(int new_x, int new_y, piece **board)=0;
-        void hello_piece_world(void);
-        void score();        
+        void hello_piece_world(void);      
         int get_x_coords(void);
         int get_y_coords(void);
         int get_piece_type(void);

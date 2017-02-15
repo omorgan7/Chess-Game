@@ -16,9 +16,6 @@ int piece::get_y_coords(void){
 short piece::getColour(void){
     return team_colour;
 }
-int piece::get_piece_type(void){
-    return piece_type;
-}
 int piece::get_piece_value(void){
     return piece_value;
 }

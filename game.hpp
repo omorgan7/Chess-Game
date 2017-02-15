@@ -19,9 +19,11 @@ class game {
         bool SearchKingSpace(int color);
         bool update_board_state(string move, int colour);
         void initialiseKingPosition(void);
+        void initialiseScore(void);
         void reset();
         bool check_lineof_sight(int colour);
         bool check_knights(int colour);
+        void score(int colour, int index);
 
     private:
         string white_pieces; 
@@ -32,6 +34,8 @@ class game {
         int black_king_index;
         int white_king_index;
         int king_index;
+        int white_score;
+        int black_score;
 
 };
 

@@ -21,14 +21,10 @@ class game {
         void SetKingColorIndex(int color);
 	bool update_board_state(string move, int colour);
         void initialiseKingPosition(void);
-<<<<<<< HEAD
         void initialiseScore(void);
-        void reset();
-=======
         bool CanBeKilled(int index);
         bool CanBeBlocked(int index);
 	void reset();
->>>>>>> 714672dc6e8164b92f859c507a34306cda3edb44
         bool check_lineof_sight(int colour);
         bool check_knights(int colour);
         void score(int colour, int index);

@@ -7,12 +7,6 @@
 #define BLACK 1
 #define ALIVE 1
 #define OUT 0
-#define piece_pawn 0
-#define piece_rook 1
-#define piece_knight 2
-#define piece_bishop 3
-#define piece_queen 4
-#define piece_king 5
 #define pawn_value 1
 #define rook_value 5
 #define knight_value 3

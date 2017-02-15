@@ -48,6 +48,22 @@ void game::display_board_state(void) {
     cout<<"|\n";
 }
 
+bool game::Check(int colour){
+	if (colour == WHITE){
+		int x= white_king_index%8;
+		int y= white_king_index/8;
+		for(int i = white_king_index -9; i<white_king_index+9; ){
+			if (B.chessboard[i] !=nullptr){
+				if (B.chessboard[i]->getColour() != WHITE){
+					if(B.chessboard[i]->move(x,y,B.chessboard)==0){
+						return 1;
+		}
+			}
+				}
+					}
+	}
+}
+
 
 bool game::update_board_state(string move, int colour)
 // Takes in inputted move, and uses this to update board e.g. BNc3

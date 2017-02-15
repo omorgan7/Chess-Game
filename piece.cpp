@@ -22,6 +22,15 @@ int piece::get_piece_value(void){
 int piece::get_is_initial(void){
     return is_initial;
 }
+int piece::space_free(int new_x, int new_y, piece **board){
+    if (board[new_x + 8*new_y] == nullptr){
+        return 1;
+    }
+    if (board[new_x + 8*new_y] -> getColour()==team_colour){
+        return 0;
+    }
+    return -1;
+}
 /////////////////////////////////////////
 //Pawn Class
 pawn::pawn(int x_coord, int y_coord, int colour){
@@ -37,6 +46,9 @@ pawn::pawn(int x_coord, int y_coord, int colour){
      PieceName = "BP";
 };
 bool pawn::move(int new_x, int new_y, piece **board){  
+    // if (space_free(new_x, new_y, board) == 0){
+    //     return 1;
+    // }
     if (board[new_x + 8*new_y] != nullptr){
         if (board[new_x + 8*new_y] -> getColour()==team_colour){
         return 0;
@@ -122,6 +134,7 @@ queen::queen(int colour){
     c_y=7;
     PieceName = "BQ";
 };
+
 bool queen::move(int new_x, int new_y, piece **board){
     if (board[new_x + 8*new_y] != nullptr){
         if (board[new_x + 8*new_y] -> getColour()==team_colour){

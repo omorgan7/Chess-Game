@@ -29,6 +29,9 @@ class piece {
         short getColour(void);
         string PieceName;
         int get_is_initial(void);
+        // int line_search_diagonal():
+        // int line_search_straight();
+        int space_free(int new_x, int new_y, piece **board);
     private:
     protected:
         void state(int);

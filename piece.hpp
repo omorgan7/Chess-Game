@@ -54,7 +54,7 @@ class queen: public piece{
 };
 class king: public piece{
     public:
-        king(int x_coord, int y_coord, int colour;
+        king(int x_coord, int y_coord, int colour);
         void reset(void);
         bool move(int new_x, int new_y, piece **board);
         bool castling(piece **board, int side);

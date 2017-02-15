@@ -47,6 +47,12 @@ void game::display_board_state(void) {
 }
 
 bool game::Check(int colour){
+	if (colour == WHITE){
+		white_king_index
+	for(int i = white_king_index -9; i<white_king_index+9; )	
+		B.chessboard[i]
+	}
+
 }
 
 

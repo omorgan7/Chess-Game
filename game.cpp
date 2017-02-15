@@ -1,7 +1,7 @@
 #include "game.hpp"
 #include "piece.hpp"
 #include "board.hpp"
-const regex expression("([RNBKQP])([abcdefg])([12345678])([=])([RNBKQP])|([RNBKQP])([abcdefg])([12345678])|([RNBKQP])([abcdefg]|[12345678])([abcdefg])([12345678])");
+const regex expression("([RNBKQP])([a-g])([1-8])=([RNBKQP])|([RNBKQP])([a-g])([1-8])|([RNBKQP])([a-g]|[1-8])([a-g])([1-8])|O(-O){1,2}");
 const int SearchIntervals[] = {-9,-8,-7,-1,+1,7,8,9};
 const int KnightIntervals[]={-17, -15,-10,-6, 6, 10, 15, 17};
 Board B;
@@ -66,7 +66,7 @@ bool game::update_board_state(string move, int colour)
 	if(move.length() == 3) {
 		for (auto i = 0; i < 64; i++){
 			if(B.chess_board[i]->PieceName == (col_char + to_string(move[0]))){
-				if(B.chess_board[x + 8 * y]->move(x, y, B.chess_board) == 1)){
+				if(B.chess_board[x + 8 * y]->move(x, y, B.chess_board) == 1){
 					delete[] B.chess_board[i];
 					B.chess_board[i] = nullptr;
 					if(B.chess_board[x + 8 * y] != nullptr){
@@ -74,27 +74,28 @@ bool game::update_board_state(string move, int colour)
 					}
 					switch (move[0]) {
 						case 'R' :
-							B.chessboard[x + 8 * y] = new rook(x, y, colour);
+							B.chess_board[x + 8 * y] = new rook(x, y, colour);
 						case 'N' :
-							B.chessboard[x + 8 * y] = new knight(x, y, colour);
+							B.chess_board[x + 8 * y] = new knight(x, y, colour);
 						case 'B' :
-							B.chessboard[x + 8 * y] = new bishop(x, y, colour);
+							B.chess_board[x + 8 * y] = new bishop(x, y, colour);
 						case 'K':
-							B.chessboard[x + 8 * y] = new king(x, y, colour);
+							B.chess_board[x + 8 * y] = new king(x, y, colour);
 						case 'Q':
-							B.chessboard[x + 8 * y] = new queen(x, y, colour);
+							B.chess_board[x + 8 * y] = new queen(x, y, colour);
 					}
-					B.chess_board[x + 8 * y] = new Piece(); // Type of piece to go here...
-
+					return 1;
 				}
 			}
-			else if (B.chess_board[x + 8 * y]->move(x, y, B.chess_board) == False {
+		}
+		return 0;
+			/*else if (B.chess_board[x + 8 * y]->move(x, y, B.chess_board) == False {
 				return False;
 			}
 			else {
 				continue;
 			}
-		}
+		}*/
 	}
 	/*else if (move.length() == 4) {
 		int z;

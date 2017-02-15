@@ -58,20 +58,19 @@ bool game::update_board_state(string move, int colour)
 		col_char = "B";
 	}
 	string letters = "abcdefgh";
-	int x = letters.find(to_string(move[1]));
+	int x = letters.find(move[1]);
 	int y = atoi(&move[2]);
 	if(move.length() == 3) {
 		for (auto i = 0; i < 64; i++){
 			if(B.chess_board[i] != nullptr){
 
 				if(B.chess_board[i]->PieceName == (col_char + move[0]) ){
-					cout<<B.chess_board[i]->move(x, y, B.chess_board)<<"\n";
 					if(B.chess_board[i]->move(x, y, B.chess_board) == 1){
-
-						delete[] B.chess_board[i];
+						
+						delete B.chess_board[i];
 						B.chess_board[i] = nullptr;
 						if(B.chess_board[x + 8 * y] != nullptr){
-							delete[] B.chess_board[x + 8 * y];
+							delete B.chess_board[x + 8 * y];
 						}
 						switch (move[0]) {
 							case 'P' :
@@ -79,6 +78,7 @@ bool game::update_board_state(string move, int colour)
 							case 'R' :
 								B.chess_board[x + 8 * y] = new rook(x, y, colour);
 							case 'N' :
+								cout<<x<<" "<<y<<"\n";
 								B.chess_board[x + 8 * y] = new knight(x, y, colour);
 							case 'B' :
 								B.chess_board[x + 8 * y] = new bishop(x, y, colour);

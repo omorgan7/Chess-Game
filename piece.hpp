@@ -10,8 +10,10 @@
 #define pawn_value 1
 #define rook_value 5
 #define knight_value 3
-#define bishop_value 5
+#define bishop_value 3
 #define queen_value 9
+#define queenside -4
+#define kingside 3
 
 
 using namespace std;
@@ -19,14 +21,14 @@ using namespace std;
 class piece {
     public:
         virtual bool move(int new_x, int new_y, piece **board)=0;
-        void hello_piece_world(void);
-        void score();        
+        void hello_piece_world(void);      
         int get_x_coords(void);
         int get_y_coords(void);
         int get_piece_type(void);
         int get_piece_value(void);
         short getColour(void);
         string PieceName;
+        int get_is_initial(void);
     private:
     protected:
         void state(int);
@@ -35,7 +37,8 @@ class piece {
         int team_colour;
         int piece_value; 
         int piece_type;
-        piece *chessboard;   
+        piece *chessboard; 
+        int is_initial;  
 };
 
 class queen: public piece{
@@ -49,8 +52,8 @@ class king: public piece{
     public:
         king(int colour);
         void reset(void);
-
         bool move(int new_x, int new_y, piece **board);
+        bool castling(piece **board, int side);
 };
 class bishop: public piece{
     public:
@@ -65,14 +68,12 @@ class knight: public piece{
 class rook: public piece{
     public:
         rook(int x_coord, int y_coord, int colour);
-        bool move(int new_x, int new_y, piece **board);    
+        bool move(int new_x, int new_y, piece **board);  
 };
 class pawn: public piece{
     public:
         pawn(int x_coord, int y_coord, int colour);
         bool move(int new_x, int new_y, piece **board);
-
-    private:
-        int is_initial ; 
+        bool en_passant(int new_x, int new_y, piece **board);
    };
 #endif 

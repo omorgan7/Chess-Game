@@ -16,11 +16,11 @@ int piece::get_y_coords(void){
 short piece::getColour(void){
     return team_colour;
 }
-int piece::get_piece_type(void){
-    return piece_type;
-}
 int piece::get_piece_value(void){
     return piece_value;
+}
+int piece::get_is_initial(void){
+    return is_initial;
 }
 /////////////////////////////////////////
 //Pawn Class
@@ -59,6 +59,10 @@ bool pawn::move(int new_x, int new_y, piece **board){
     };
     return 0;
 };
+bool pawn::en_passant(int new_x, int new_y, piece **board){
+    if((new_x = c_x)&&(new_y = c_y + team_colour)){}
+    return 0;
+}
 
 /////////////////////////////////
 //King Class
@@ -73,16 +77,32 @@ king::king(int colour){
         c_x= 3;
         c_y= 7;
         PieceName = "BK";
+        is_initial = 1;
 };
+bool king::castling(piece **board, int side){
+    int index = c_x+8*c_y;
+    int new_pos;
+    if (side==queenside){
+        int new_pos = 2;
+    }
+    else{
+        int new_pos = 6;
+    }
+    if ((board[index]->get_is_initial() == 0)|(board[index+side]->get_is_initial() == 0)|(board[new_pos]!=nullptr)){
+        return 0;
+    }
+    return 1;
+}
 bool king::move( int new_x, int new_y, piece **board){
-         if (board[new_x + 8*new_y] != nullptr){
-            if (board[new_x + 8*new_y]->getColour()==team_colour){
-                return 0;
-            }
-         }    
-        if (((c_x-new_x != 1)&&(c_x-new_x != -1))|((c_y-new_y != 1)&&(c_y-new_y != -1))){
+    is_initial=0;
+    if (board[new_x + 8*new_y] != nullptr){
+        if (board[new_x + 8*new_y]->getColour()==team_colour){
             return 0;
-        };
+        }
+    }    
+    if (((c_x-new_x != 1)&&(c_x-new_x != -1))|((c_y-new_y != 1)&&(c_y-new_y != -1))){
+        return 0;
+    };
     return 1;
 };
 
@@ -137,6 +157,7 @@ rook::rook(int x_coord, int y_coord, int colour){
     c_y=y_coord;
     team_colour = colour;
     piece_value = rook_value;
+    is_initial=1;
     if (team_colour==WHITE){
         PieceName="WR";
         return;
@@ -144,6 +165,7 @@ rook::rook(int x_coord, int y_coord, int colour){
     PieceName = "BR";
 };
 bool rook::move(int new_x, int new_y, piece **board){
+    is_initial = 0;
     if (board[new_x + 8*new_y] != nullptr){
             if (board[new_x + 8*new_y] -> getColour()==team_colour){
                 return 0;

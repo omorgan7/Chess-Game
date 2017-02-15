@@ -22,21 +22,36 @@ int piece::get_piece_value(void){
 int piece::get_is_initial(void){
     return is_initial;
 }
-/////////////////////////////////////////
-//Pawn Class
-pawn::pawn(int x_coord, int y_coord, int colour){
+int piece::space_free(int new_x, int new_y, piece **board){
+    if (board[new_x + 8*new_y] == nullptr){
+        return 1;
+    }
+    if (board[new_x + 8*new_y] -> getColour()==team_colour){
+        return 0;
+    }
+    return -1;
+}
+void piece::basic(int x_coord, int y_coord,int colour){
     c_x = x_coord;
     c_y=y_coord;
     team_colour = colour;
     is_initial=1;
+}
+/////////////////////////////////////////
+//Pawn Class
+pawn::pawn(int x_coord, int y_coord, int colour){
+    basic(x_coord,y_coord, colour);
     piece_value = pawn_value;
     if (team_colour == WHITE){
         PieceName = "WP";
     return;
     }
-     PieceName = "BP";
+    PieceName = "BP";
 };
 bool pawn::move(int new_x, int new_y, piece **board){  
+    // if (space_free(new_x, new_y, board) == 0){
+    //     return 1;
+    // }
     if (board[new_x + 8*new_y] != nullptr){
         if (board[new_x + 8*new_y] -> getColour()==team_colour){
         return 0;
@@ -66,18 +81,13 @@ bool pawn::en_passant(int new_x, int new_y, piece **board){
 
 /////////////////////////////////
 //King Class
-king::king(int colour){
-    team_colour=colour;
+king::king(int x_coord, int y_coord, int colour){
+    basic(x_coord,y_coord, colour);
     if(team_colour== WHITE){
-        c_x= 3;
-        c_y= 0;
         PieceName = "WK";
-        return;
+    return;
     };
-        c_x= 3;
-        c_y= 7;
         PieceName = "BK";
-        is_initial = 1;
 };
 bool king::castling(piece **board, int side){
     int index = c_x+8*c_y;
@@ -109,19 +119,16 @@ bool king::move( int new_x, int new_y, piece **board){
 ///////////////////////////
 //Queen Class
 
-queen::queen(int colour){
-    team_colour=colour;
+queen::queen(int x_coord, int y_coord,int colour){
+   basic(x_coord,y_coord, colour);
     piece_value = queen_value;
     if (colour==WHITE){
-        c_x=4;
-        c_y=0;
         PieceName="WQ";
         return;
    };
-    c_x =4;
-    c_y=7;
     PieceName = "BQ";
 };
+
 bool queen::move(int new_x, int new_y, piece **board){
     if (board[new_x + 8*new_y] != nullptr){
         if (board[new_x + 8*new_y] -> getColour()==team_colour){
@@ -153,11 +160,8 @@ bool queen::move(int new_x, int new_y, piece **board){
 ////////////////////////
 //Rook Class
 rook::rook(int x_coord, int y_coord, int colour){
-    c_x=x_coord;
-    c_y=y_coord;
-    team_colour = colour;
+    basic(x_coord,y_coord, colour);
     piece_value = rook_value;
-    is_initial=1;
     if (team_colour==WHITE){
         PieceName="WR";
         return;
@@ -186,9 +190,7 @@ bool rook::move(int new_x, int new_y, piece **board){
 //////////////////////
 //Bishop Class
 bishop::bishop(int x_coord, int y_coord, int colour){
-    c_x=x_coord;
-    c_y=y_coord;
-    team_colour=colour;
+   basic(x_coord,y_coord, colour);
     piece_value = bishop_value;
     if (team_colour==WHITE){
         PieceName = "WB";
@@ -224,9 +226,7 @@ bool bishop::move(int new_x, int new_y, piece **board){
 /////////////////
 //Knight Class
 knight::knight(int x_coord, int y_coord, int colour){
-    c_x = x_coord;
-    c_y=y_coord;
-    team_colour = colour;
+  basic(x_coord,y_coord, colour);
     piece_value = knight_value ;
     if (team_colour==WHITE){
         PieceName = "WN";

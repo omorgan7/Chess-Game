@@ -49,9 +49,7 @@ pawn::pawn(int x_coord, int y_coord, int colour){
     PieceName = "BP";
 };
 bool pawn::move(int new_x, int new_y, piece **board){  
-    // if (space_free(new_x, new_y, board) == 0){
-    //     return 1;
-    // }
+    std::cout<<"in fun \n" ;
     if (board[new_x + 8*new_y] != nullptr){
         if (board[new_x + 8*new_y] -> getColour()==team_colour){
         return 0;

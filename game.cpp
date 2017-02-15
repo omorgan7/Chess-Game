@@ -63,7 +63,7 @@ bool game::update_board_state(string move, int colour)
 	if(move.length() == 3) {
 		for (auto i = 0; i < 64; i++){
 			if(B.chess_board[i] != nullptr){
-				if(B.chess_board[i]->PieceName == (col_char + to_string(move[0]))){
+				if(B.chess_board[i]->PieceName == (col_char + (move[0]))){
 					if(B.chess_board[i]->move(x, y, B.chess_board) == 1){
 						delete[] B.chess_board[i];
 						B.chess_board[i] = nullptr;

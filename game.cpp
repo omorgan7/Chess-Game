@@ -66,7 +66,6 @@ bool game::update_board_state(string move, int colour)
 
 				if(B.chess_board[i]->PieceName == (col_char + move[0]) ){
 					if(B.chess_board[i]->move(x, y, B.chess_board) == 1){
-						
 						delete B.chess_board[i];
 						B.chess_board[i] = nullptr;
 						if(B.chess_board[x + 8 * y] != nullptr){
@@ -78,7 +77,6 @@ bool game::update_board_state(string move, int colour)
 							case 'R' :
 								B.chess_board[x + 8 * y] = new rook(x, y, colour);
 							case 'N' :
-								cout<<x<<" "<<y<<"\n";
 								B.chess_board[x + 8 * y] = new knight(x, y, colour);
 							case 'B' :
 								B.chess_board[x + 8 * y] = new bishop(x, y, colour);

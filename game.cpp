@@ -4,7 +4,6 @@
 const regex expression("([RNBKQP])([abcdefg])([12345678])([=])([RNBKQP])|([RNBKQP])([abcdefg])([12345678])|([RNBKQP])([abcdefg]|[12345678])([abcdefg])([12345678])");
 const int SearchIntervals[] = {-9,-8,-7,-1,+1,7,8,9};
 const int KnightIntervals[]={-25,-23,-18, -14, 14, 18, 23, 25};
-
 Board B;
 
 game::game(){
@@ -48,66 +47,6 @@ void game::display_board_state(void) {
         }
 	}
     cout<<"|\n";
-}
-
-bool game::Check(int colour){
-	if (colour == WHITE){
-		king_index=white_king_index;
-	}
-	else{
-		king_index=black_king_index;
-	}
-	if(check_lineof_sight(colour)==1){
-		return 1;
-	}
-	if(check_knights(colour)==1){
-		return 1;
-	}
-	return 0;
-}
-	
-bool game::check_lineof_sight(int colour){
-	for (auto j = 1; j<9; j++){
-		for(auto i = 0; i<8; i++){
-			auto index = j*SearchIntervals[i]+king_index;
-			if(index >= 0 && index <= 63){
-				if(B.chess_board[index]!=nullptr){
-					if (B.chess_board[index]->getColour() != colour){
-						if(B.chess_board[index]->move(index%8,index/8,B.chess_board)==1){
-							return 1;
-						}		
-					}
-				}
-			}
-		}
-	}
-	return 0;
-}
-
-bool game::check_knights(int colour){
-	for (auto i = 0; i<8; i++){
-		auto index = KnightIntervals[i]+king_index;
-		if(index >= 0 && index <= 63){	
-			if(B.chess_board[index]!=nullptr){
-				if (B.chess_board[index]->getColour() != colour){
-					if(B.chess_board[index]->PieceName[1]=='N'){
-						return 1;
-					}		
-				}
-			}
-		}
-	}
-	return 0;
-}
-
-void game::score(int colour, int index){
-	int increase = B.chess_board[index]->get_piece_value();
-	if (colour == WHITE){
-		white_score = white_score + increase;
-	}
-	else{
-		black_score = black_score + increase;
-	}
 }
 bool game::update_board_state(string move, int colour)
 // Takes in inputted move, and uses this to update board e.g. BNc3
@@ -199,35 +138,126 @@ void game::initialiseKingPosition(void){
 	white_king_index = 59;
 }
 
-bool game::CheckMate(int color) {
-//Assumption: King should already be in check when this function is called.
+bool game::Check(int colour){
+	//Should be run at the end of every move to see if this would put a piece in check.
+	SetKingColorIndex(colour);
+	if(check_lineof_sight(colour)==1){
+		return 1;
+	}
+	if(check_knights(colour)==1){
+		return 1;
+	}
+	return 0;
+}
+bool game::Check(int colour, int target_x, int target_y){
+	//modified version of the checking function specifically for checkmate purposes.
+	SetKingColorIndex(colour);
+	king_index = target_x + 8*target_y;
+	if(check_lineof_sight(colour)==1){
+		return 1;
+	}
+	if(check_knights(colour)==1){
+		return 1;
+	}
+	return 0;
+}
 
+	
+bool game::check_lineof_sight(int colour){
+	for (auto j = 1; j<9; j++){
+		for(auto i = 0; i<8; i++){
+			auto index = j*SearchIntervals[i]+king_index;
+			if(index >= 0 && index < 64){
+				if(B.chess_board[index]!=nullptr){
+					if (B.chess_board[index]->getColour() != colour){
+						if(B.chess_board[index]->move(index%8,index/8,B.chess_board)==1){
+							return 1;
+						}		
+					}
+				}
+			}
+		}
+	}
+	return 0;
+}
+
+bool game::check_knights(int colour){
+	for (auto i = 0; i<8; i++){
+		auto index = KnightIntervals[i]+king_index;
+		if(index >= 0 && index <= 63){	
+			if(B.chess_board[index]!=nullptr){
+				if (B.chess_board[index]->getColour() != colour){
+					if(B.chess_board[index]->PieceName[1]=='N'){
+						return 1;
+					}		
+				}
+			}
+		}
+	}
+	return 0;
+}
+
+bool game::CheckMate(int color){
+//Assumption: King should already be in check when this function is called.
+	SetKingColorIndex(color);
 	if(SearchKingSpace(color) == 1){
 		return 0;
 	}
-
-	return 0;
-
+	vector<int> AttackingPieceIndices;
+	for(auto i = 0; i<64; i++){
+		if(B.chess_board[i] != nullptr){
+			if(B.chess_board[i]->move(king_index%8,king_index/8,B.chess_board)==1){
+				AttackingPieceIndices.push_back(i);
+			}
+		}
+	}
+	if(AttackingPieceIndices.size()>1){
+		return 1;
+	}
+	if(CanBeKilled(AttackingPieceIndices[0])==1){
+		return 0;
+	}
+	if(B.chess_board[AttackingPieceIndices[0]]->PieceName[1] == 'N'){
+		return 1;
+	}
+	return !CanBeBlocked(AttackingPieceIndices[0]);
 }
 
 bool game::SearchKingSpace(int color){
+	for(auto i = 0; i<8; i++){
+		auto index = SearchIntervals[i]+king_index;
+		if(index >= 0 && index <= 63){
+			if(B.chess_board[index]==nullptr){
+				if(Check(color,index%8, index/8)==0){
+					return 1;
+				}
+			}
+			else{
+				if(B.chess_board[index]->move(index%8,index/8,B.chess_board)==1){
+					if(Check(color,index%8, index/8)==0){
+						return 1;
+					}
+				}
+			}
+		}
+	}
+	return 0;
+}
+
+void game::SetKingColorIndex(int color){
 	if(color==WHITE){
 		king_index = white_king_index;
 	}
 	else{
 		king_index = black_king_index;
 	}
-	for(auto i = 0; i<8; i++){
-		auto index = SearchIntervals[i]+king_index;
-		if(index >= 0 && index <= 63){
-			if(B.chess_board[index]==nullptr){
-				return 1;
-			}
-			if(B.chess_board[index]->move(index%8,index/8,B.chess_board)==1){
-				return 1;
-			}
-		}
-	}
-	return 0;
-};
+}
+
+bool game::CanBeKilled(int index){
+	for(auto i = 0; i<64)
+}
+
+bool game::CanBeBlocked(int index){
+	
+}
 

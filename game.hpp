@@ -3,7 +3,7 @@
 #include<iostream>
 #include<string>
 #include<regex>
-#include<list>
+#include<vector>
 
 using namespace std;
 
@@ -15,12 +15,20 @@ class game {
         void print_chessboard_line(string *statestring);
         void process_input(int color);
         bool Check(int color);
+        bool Check(int colour, int target_x, int target_y);
         bool CheckMate(int color);
         bool SearchKingSpace(int color);
-        bool update_board_state(string move, int colour);
+        void SetKingColorIndex(int color);
+	bool update_board_state(string move, int colour);
         void initialiseKingPosition(void);
+<<<<<<< HEAD
         void initialiseScore(void);
         void reset();
+=======
+        bool CanBeKilled(int index);
+        bool CanBeBlocked(int index);
+	void reset();
+>>>>>>> 714672dc6e8164b92f859c507a34306cda3edb44
         bool check_lineof_sight(int colour);
         bool check_knights(int colour);
         void score(int colour, int index);

@@ -59,7 +59,7 @@ bool game::update_board_state(string move, int colour)
 	}
 	string letters = "abcdefgh";
 	int x = letters.find(move[1]);
-	int y = atoi(&move[2]);
+	int y = atoi(&move[2])-1;
 	if(move.length() == 3) {
 		for (auto i = 0; i < 64; i++){
 			if(B.chess_board[i] != nullptr){
@@ -74,16 +74,22 @@ bool game::update_board_state(string move, int colour)
 						switch (move[0]) {
 							case 'P' :
 								B.chess_board[x + 8 * y] = new pawn(x, y, colour);
+								break;
 							case 'R' :
 								B.chess_board[x + 8 * y] = new rook(x, y, colour);
+								break;
 							case 'N' :
 								B.chess_board[x + 8 * y] = new knight(x, y, colour);
+								break;
 							case 'B' :
 								B.chess_board[x + 8 * y] = new bishop(x, y, colour);
+								break;
 							case 'K':
 								B.chess_board[x + 8 * y] = new king(x, y, colour);
+								break;
 							case 'Q':
 								B.chess_board[x + 8 * y] = new queen(x, y, colour);
+								break;
 						}
 						return 1;
 					}

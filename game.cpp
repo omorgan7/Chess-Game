@@ -55,19 +55,19 @@ bool game::update_board_state(string move, int colour)
 	if (move.length() == 3) {
 		switch (move.at(0)) {
 			case 'R':
-				rook.move(letters.find(to_string(move.at(1))), move.at(2), &B);
+				rook.move(letters.find(to_string(move.at(1))), atoi(move.at(2).c_str()), &B);
 				break;
 			case 'K':
-				knight.move(letters.find(to_string(move.at(1))), move.at(2));
+				knight.move(letters.find(to_string(move.at(1))), atoi(move.at(2).c_str()));
 				break;
 			case 'B':
-				bishop.move(letters.find(to_string(move.at(1))), move.at(2));
+				bishop.move(letters.find(to_string(move.at(1))), atoi(move.at(2).c_str()));
 				break;
 			case 'K':
-				king.move(letters.find(to_string(move.at(1))), move.at(2));
+				king.move(letters.find(to_string(move.at(1))), atoi(move.at(2).c_str()));
 				break;
 			case 'Q':
-				queen.move(letters.find(to_string(move.at(1))), move.at(2));
+				queen.move(letters.find(to_string(move.at(1))), atoi(move.at(2).c_str()));
 				break;
 		}
 	}

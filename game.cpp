@@ -42,6 +42,9 @@ void game::display_board_state(void) {
     cout<<"|\n";
 }
 
+bool game::Check(int colour){
+}
+
 
 bool game::update_board_state(string move, int colour)
 // Takes in inputted move, and uses this to update board e.g. BNc3

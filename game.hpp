@@ -14,6 +14,7 @@ class game {
         void print_chessboard_line(string *statestring);
         void process_input(int color);
         bool CheckMate(int color);
+        bool Check(int colour);
 		bool update_board_state(string move, int colour);
 		void reset();
 

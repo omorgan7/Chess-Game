@@ -15,15 +15,10 @@ int main(){
     while(1){
         cout<<"Player 1 (white) enter your move:\n";
         G.process_input(WHITE);
-        if(G.CheckMate(WHITE) == 1){
-            break;
-        }
         G.display_board_state();    
         cout<<"Player 2 (black) enter your move:\n";
         G.process_input(BLACK);
-        if(G.CheckMate(BLACK) == 1){
-            break;
-        }
+        G.display_board_state();  
     }
 
     return 0;

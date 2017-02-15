@@ -21,11 +21,10 @@ void game::process_input(int color) {
 		regex_search(response, matcher, expression);
 		matched_expression = response == matcher[0];
 		if (matched_expression == 1) {
-			break;
+			if (update_board_state(response, color) == 1) {
+				break;
+			};
 		}
-		if (update_board_state(response, color) == 1) {
-			break;
-		};
 		cout << "Please enter a valid move (e.g. Be5, Pe8=Q, Bef6 or B5f6):\n";
 	}
 }
@@ -52,7 +51,6 @@ bool game::update_board_state(string move, int colour)
 // Takes in inputted move, and uses this to update board e.g. BNc3
 {
 	string col_char;
-
 	if (colour == WHITE) {
 		col_char = "W";
 	}
@@ -61,30 +59,31 @@ bool game::update_board_state(string move, int colour)
 	}
 	string letters = "abcdefgh";
 	int x = letters.find(to_string(move[1]));
-	//int y = atoi((const char*) move[2]);//needs debugging
 	int y = atoi(&move[2]);
 	if(move.length() == 3) {
 		for (auto i = 0; i < 64; i++){
-			if(B.chess_board[i]->PieceName == (col_char + to_string(move[0]))){
-				if(B.chess_board[x + 8 * y]->move(x, y, B.chess_board) == 1){
-					delete[] B.chess_board[i];
-					B.chess_board[i] = nullptr;
-					if(B.chess_board[x + 8 * y] != nullptr){
-						delete[] B.chess_board[x + 8 * y];
+			if(B.chess_board[i] != nullptr){
+				if(B.chess_board[i]->PieceName == (col_char + to_string(move[0]))){
+					if(B.chess_board[i]->move(x, y, B.chess_board) == 1){
+						delete[] B.chess_board[i];
+						B.chess_board[i] = nullptr;
+						if(B.chess_board[x + 8 * y] != nullptr){
+							delete[] B.chess_board[x + 8 * y];
+						}
+						switch (move[0]) {
+							case 'R' :
+								B.chess_board[x + 8 * y] = new rook(x, y, colour);
+							case 'N' :
+								B.chess_board[x + 8 * y] = new knight(x, y, colour);
+							case 'B' :
+								B.chess_board[x + 8 * y] = new bishop(x, y, colour);
+							case 'K':
+								B.chess_board[x + 8 * y] = new king(x, y, colour);
+							case 'Q':
+								B.chess_board[x + 8 * y] = new queen(x, y, colour);
+						}
+						return 1;
 					}
-					switch (move[0]) {
-						case 'R' :
-							B.chess_board[x + 8 * y] = new rook(x, y, colour);
-						case 'N' :
-							B.chess_board[x + 8 * y] = new knight(x, y, colour);
-						case 'B' :
-							B.chess_board[x + 8 * y] = new bishop(x, y, colour);
-						case 'K':
-							B.chess_board[x + 8 * y] = new king(x, y, colour);
-						case 'Q':
-							B.chess_board[x + 8 * y] = new queen(x, y, colour);
-					}
-					return 1;
 				}
 			}
 		}

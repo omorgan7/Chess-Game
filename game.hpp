@@ -10,12 +10,14 @@ using namespace std;
 //list of public and private member variables to go here.
 class game {
     public:
+        game();
         void display_board_state(void);
         void print_chessboard_line(string *statestring);
         void process_input(int color);
         bool CheckMate(int color);
         bool Check(int colour);
 		bool update_board_state(string move, int colour);
+        void initialiseKingPosition(void);
 		void reset();
 
     private:
@@ -24,6 +26,8 @@ class game {
         string empty_line;
         string black_pieces;
         string black_pawns;
+        int black_king_index;
+        int white_king_index;
 
 };
 

@@ -68,10 +68,6 @@ bool pawn::move(int new_x, int new_y, piece **board){
           std::cout<<"line 58 \n" ;
     }
    if (is_initial ==1){
-       std::cout<<"line 66 \n";
-       std::cout<<"cy + team colour"<<c_y+1*team_colour<<'\n';
-       std::cout<<"cy"<<c_y<<'\n';
-       std::cout<<"team colour"<<team_colour<<'\n';
         if ((new_x == c_x)&&((new_y==c_y+1*team_colour)|(new_y==c_y+2*team_colour))){
             is_initial=0;
             std::cout<<"line 69 \n";
@@ -181,17 +177,17 @@ rook::rook(int x_coord, int y_coord, int colour){
 bool rook::move(int new_x, int new_y, piece **board){
     is_initial = 0;
     if (board[new_x + 8*new_y] != nullptr){
+        cout<<"not null \n";
             if (board[new_x + 8*new_y] -> getColour()==team_colour){
                 return 0;
-            }
+            }    
+        auto it = (new_x-c_x)*pow(-1, new_x<c_x)+8*(new_y-c_y)*pow(-1, new_y<c_y);
+            for (auto i = c_x + 8*c_y; i != new_x + 8*new_y; i+=it){
+                if (board[i] != nullptr){
+                    return 0;
+                }
+            }  
     }
-    auto it = (new_x-c_x)*pow(-1, new_x<c_x)+8*(new_y-c_y)*pow(-1, new_y<c_y);
-     for (auto i = c_x + 8*c_y; i != new_x + 8*new_y; i+=it){
-            if (board[i] != nullptr){
-                return 0;
-            }
-    }  
-     
     if ((c_x - new_x !=0) && (c_y-new_y!=0)){
         return 0;
     };
@@ -210,16 +206,16 @@ bishop::bishop(int x_coord, int y_coord, int colour){
 };
 bool bishop::move(int new_x, int new_y, piece **board){
     if (board[new_x + 8*new_y] != nullptr){
-            if (board[new_x + 8*new_y] -> getColour()==team_colour){
+        if (board[new_x + 8*new_y] -> getColour()==team_colour){
+            return 0;
+        }
+        auto it = 8*pow(-1,new_y>c_y);
+        it = it+pow(-1,new_x<c_x);
+        
+        for (auto i = c_x + 8*c_y; i != new_x + 8*new_y; i+=it){
+            if (board[i] != nullptr){
                 return 0;
             }
-    }
-    auto it = 8*pow(-1,new_y>c_y);
-    it = it+pow(-1,new_x<c_x);
-    
-    for (auto i = c_x + 8*c_y; i != new_x + 8*new_y; i+=it){
-        if (board[i] != nullptr){
-            return 0;
         }
     }   
     if ((c_x - new_x !=0) && (c_y-new_y!=0)){

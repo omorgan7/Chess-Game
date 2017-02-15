@@ -83,8 +83,6 @@ bool king::move( int new_x, int new_y, piece **board){
         if (((c_x-new_x != 1)&&(c_x-new_x != -1))|((c_y-new_y != 1)&&(c_y-new_y != -1))){
             return 0;
         };
-    c_x=new_x;
-    c_y=new_y;
     return 1;
 };
 
@@ -162,8 +160,6 @@ bool rook::move(int new_x, int new_y, piece **board){
     if ((c_x - new_x !=0) && (c_y-new_y!=0)){
         return 0;
     };
-    c_x=new_x;
-    c_y=new_y;
     return 1;
 };
 //////////////////////
@@ -202,8 +198,6 @@ bool bishop::move(int new_x, int new_y, piece **board){
     if (((c_x - new_x ==0) && (c_y-new_y!=0))|((c_x - new_x !=0) && (c_y-new_y!=0))){
         return 0;
     };
-    c_x=new_x;
-    c_y=new_y;
     return 1;
 };
 /////////////////
@@ -227,25 +221,15 @@ bool knight::move(int new_x, int new_y, piece **board){
     }
 
     if ((new_x == c_x - 1)&&((new_y == c_y -2)|(new_y == c_y+2))){
-            c_x=new_x;
-            c_y=new_y;
         return 1;
     }  ;
     if ((new_x == c_x - 2)&&((new_y == c_y -1)|(new_y == c_y+1))){
-            c_x=new_x;
-            c_y=new_y;
         return 1;
     };
     if ((new_x == c_x + 1)&&((new_y == c_y -2)|(new_y == c_y+2))){
-            c_x=new_x;
-            c_y=new_y;
-
         return 1;
     }  ;
     if ((new_x == c_x + 2)&&((new_y == c_y -1)|(new_y == c_y+1))){
-            c_x=new_x;
-            c_y=new_y;
-
         return 1;
     };
 

@@ -2,7 +2,7 @@
 #include "piece.hpp"
 #include "board.hpp"
 const regex expression("([RNBKQP])([abcdefg])([12345678])([=])([RNBKQP])|([RNBKQP])([abcdefg])([12345678])|([RNBKQP])([abcdefg]|[12345678])([abcdefg])([12345678])");
-const auto SearchIntervals[] = {-9,-8,-7,-1,+1,7,8,9};
+const int SearchIntervals[] = {-9,-8,-7,-1,+1,7,8,9};
 
 Board B;
 
@@ -124,10 +124,12 @@ void game::initialiseKingPosition(void){
 }
 
 bool game::CheckMate(int color) {
+//Assumption: King should already be in check when this function is called.
 
 	if(SearchKingSpace(color) == 1){
 		return 0;
 	}
+
 	return 0;
 
 }
@@ -139,6 +141,17 @@ bool game::SearchKingSpace(int color){
 	else{
 		king_index = black_king_index;
 	}
-	
+	for(auto i = 0; i<8; i++){
+		auto index = SearchIntervals[i]+king_index;
+		if(index >= 0 && index <= 63){
+			if(B.chess_board[index]==nullptr){
+				return 1;
+			}
+			if(B.chess_board[index]->move(index%8,index/8,B.chess_board)==1){
+				return 1;
+			}
+		}
+	}
+	return 0;
 };
 

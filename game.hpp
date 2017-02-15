@@ -15,8 +15,10 @@ class game {
         void print_chessboard_line(string *statestring);
         void process_input(int color);
         bool Check(int color);
+        bool Check(int colour, int target_x, int target_y);
         bool CheckMate(int color);
-        bool SearchKingSpace(void);
+        bool SearchKingSpace(int color);
+        void SetKingColorIndex(int color);
 	bool update_board_state(string move, int colour);
         void initialiseKingPosition(void);
         bool CanBeKilled(int index);

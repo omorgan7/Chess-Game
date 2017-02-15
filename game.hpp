@@ -22,6 +22,8 @@ class game {
         bool CanBeKilled(int index);
         bool CanBeBlocked(int index);
 	void reset();
+        bool check_lineof_sight(int colour);
+        bool check_knights(int colour);
 
     private:
         string white_pieces; 

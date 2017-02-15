@@ -91,7 +91,6 @@ bool king::move( int new_x, int new_y, piece **board){
 
 queen::queen(int colour){
     team_colour=colour;
-    piece_type=piece_queen;
     piece_value = queen_value;
     if (colour==WHITE){
         c_x=4;

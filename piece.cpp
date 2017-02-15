@@ -83,10 +83,10 @@ bool king::castling(piece **board, int side){
     int index = c_x+8*c_y;
     int new_pos;
     if (side==queenside){
-        int new_pos = 2;
+        int new_pos = index - 2;
     }
     else{
-        int new_pos = 6;
+        int new_pos = index + 2;
     }
     if ((board[index]->get_is_initial() == 0)|(board[index+side]->get_is_initial() == 0)|(board[new_pos]!=nullptr)){
         return 0;

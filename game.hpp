@@ -23,8 +23,8 @@ class game {
 	bool update_board_state(string move, int colour);
         void initialiseKingPosition(void);
         void initialiseScore(void);
-        bool CanBeKilled(int index);
-        bool CanBeBlocked(int index);
+        bool CanBeKilled(int index, int color);
+        bool CanBeBlocked(int index, int color);
 	void reset();
         bool check_lineof_sight(int colour);
         bool check_knights(int colour);

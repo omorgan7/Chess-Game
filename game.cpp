@@ -72,6 +72,18 @@ bool game::update_board_state(string move, int colour)
 					if(B.chess_board[x + 8 * y] != nullptr){
 						delete[] B.chess_board[x + 8 * y];
 					}
+					switch (move[0]) {
+						case 'R' :
+							B.chessboard[x + 8 * y] = new rook(x, y, colour);
+						case 'N' :
+							B.chessboard[x + 8 * y] = new knight(x, y, colour);
+						case 'B' :
+							B.chessboard[x + 8 * y] = new bishop(x, y, colour);
+						case 'K':
+							B.chessboard[x + 8 * y] = new king(x, y, colour);
+						case 'Q':
+							B.chessboard[x + 8 * y] = new queen(x, y, colour);
+					}
 					B.chess_board[x + 8 * y] = new Piece(); // Type of piece to go here...
 
 				}

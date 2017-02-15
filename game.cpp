@@ -4,6 +4,10 @@
 const regex expression("([RNBKQP])([abcdefg])([12345678])([=])([RNBKQP])|([RNBKQP])([abcdefg])([12345678])|([RNBKQP])([abcdefg]|[12345678])([abcdefg])([12345678])");
 Board B;
 
+game::game(){
+	initialiseKingPosition();
+}
+
 void game::process_input(int color) {
 	string response;
 	smatch matcher;
@@ -94,6 +98,11 @@ void game::reset()
 {
 	cout << "Another game?\n";
 
+}
+
+void game::initialiseKingPosition(void){
+	black_king_index = 3;
+	white_king_index = 59;
 }
 
 bool game::CheckMate(int color) {

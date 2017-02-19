@@ -17,6 +17,7 @@ class game {
         void process_input(int color);
         bool movePieces(char piece, int index, int x, int y, int colour);
         void switchPieces(char piece, int x, int y, int colour);
+		bool promotePieces(char new_piece, int index, int x, int y, int colour);
         int inverseColor(int colour);
         bool Check(int color);
         bool Check(int colour, int target_x, int target_y);

@@ -16,6 +16,8 @@ Precompiled Chess.out and Chess.exe can be found in /bin.
 ##Usage:
 
 Type:
+
     QUIT
+
 To quit the game. Otherwise, enter algebraic Chess notation but with the piece name appended at the front, e.g. Pe5 means move a pawn to e5.
 

@@ -1,7 +1,7 @@
 #include "game.hpp"
 #include "piece.hpp"
 #include "board.hpp"
-const regex expression("([RNBKQP])([a-h])([1-8])=([RNBKQP])|([RNBKQP])([a-h])([1-8])|([RNBKQP])([a-h]|[1-8])([a-h])([1-8])|O(-O){1,2}");
+const regex expression("([RNBKQP])([a-h])([1-8])=([RNBQP])|([RNBKQP])([a-h])([1-8])|([RNBKQP])([a-h]|[1-8])([a-h])([1-8])|O(-O){1,2}");
 
 const int SearchIntervals[] = {-9,-8,-7,-1,+1,7,8,9};
 const int KnightIntervals[]={-17, -15,-10,-6, 6, 10, 15, 17};
@@ -135,14 +135,17 @@ bool game::movePieces(char piece, int index, int x, int y, int colour){
 		delete B.chess_board[x + 8*y];
 	}
 	switchPieces(piece, x, y, colour);
-	display_board_state();
+	//display_board_state();
+	bool checkResult;
 	if(piece == 'K'){
 		SetKingColorIndex(colour, x+8*y);
+		checkResult = Check(colour,x,y);
 	}
-	if(Check(colour) == 1){
-		if(piece == 'K'){
-			SetKingColorIndex(colour, index);
-		}
+	else{
+		checkResult = Check(colour);
+	}
+
+	if(checkResult == 1){
 		switchPieces(piece, index%8, index/8, colour);
 		delete B.chess_board[x + 8*y];
 		B.chess_board[x+8*y] = nullptr;
@@ -293,16 +296,13 @@ bool game::CheckMate(int color){
 		cout<<(AttackingPieceIndices[i])<<"\n";
 	}
 	if(AttackingPieceIndices.size()>1){
-		cout<<"273\n";
 		return 1;
 	}
 	
 	if(CanBeKilled(AttackingPieceIndices[0], color)==1){
-		cout<<"278\n";
 		return 0;
 	}
 	if(B.chess_board[AttackingPieceIndices[0]]->PieceName[1] == 'N'){
-		cout<<"282\n";
 		return 1;
 	}
 	return !CanBeBlocked(AttackingPieceIndices[0], color);
@@ -338,7 +338,12 @@ void game::SetKingColorIndex(int color){
 	}
 }
 void game::SetKingColorIndex(int color, int index){
-	king_index = index;
+	if(color==WHITE){
+		white_king_index = index;
+	}
+	else{
+		black_king_index = index;
+	}
 }
 
 bool game::CanBeKilled(int index,int color){

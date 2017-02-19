@@ -153,6 +153,7 @@ bool game::movePieces(char piece, int index, int x, int y, int colour){
 
 	if(checkResult == 1){
 		switchPieces(piece, index%8, index/8, colour);
+		SetKingColorIndex(colour,index);
 		delete B.chess_board[x + 8*y];
 		B.chess_board[x+8*y] = nullptr;
 		if(old_piece_flag==1){
@@ -161,7 +162,7 @@ bool game::movePieces(char piece, int index, int x, int y, int colour){
 		cout<<"That move puts you in check!\n";
 		return 0;
 	}
-	SetKingColorIndex(colour,index);
+
 	return 1;
 }
 
@@ -258,6 +259,7 @@ bool game::check_lineof_sight(int colour){
 				if(B.chess_board[index]!=nullptr){
 					if (B.chess_board[index]->getColour() != colour){
 						if(B.chess_board[index]->move(king_index%8,king_index/8,B.chess_board)==1){
+							cout<<"Check function ended inside loop\n";
 							return 1;
 						}		
 					}
@@ -265,6 +267,7 @@ bool game::check_lineof_sight(int colour){
 			}
 		}
 	}
+	cout<<"Check function ended outside loop\n";
 	return 0;
 }
 
@@ -291,16 +294,12 @@ bool game::CheckMate(int color){
 		return 0;
 	}
 	vector<int> AttackingPieceIndices;
-	cout<<king_index<<" "<<king_index%8<<" "<<king_index/8<<"\n";
 	for(auto i = 0; i<64; i++){
 		if(B.chess_board[i] != nullptr){
 			if(B.chess_board[i]->move(king_index%8,king_index/8,B.chess_board)==1){
 				AttackingPieceIndices.push_back(i);
 			}
 		}
-	}
-	for(auto i = 0; i<AttackingPieceIndices.size(); i++){
-		cout<<(AttackingPieceIndices[i])<<"\n";
 	}
 	if(AttackingPieceIndices.size()>1){
 		return 1;

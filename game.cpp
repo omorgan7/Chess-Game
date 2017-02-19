@@ -1,12 +1,8 @@
 #include "game.hpp"
 #include "piece.hpp"
 #include "board.hpp"
-<<<<<<< HEAD
-
-const regex expression("([RNBKQP])([a-g])([1-8])=([RNBKQP])|([RNBKQP])([a-g])([1-8])|([RNBKQP])([a-g]|[1-8])([a-g])([1-8])|O(-O){1,2}");
-=======
 const regex expression("([RNBKQP])([a-h])([1-8])=([RNBKQP])|([RNBKQP])([a-h])([1-8])|([RNBKQP])([a-h]|[1-8])([a-h])([1-8])|O(-O){1,2}");
->>>>>>> 3d62cf77ea40d4dc2f5839cbe5a7cc3ddb0883d6
+
 const int SearchIntervals[] = {-9,-8,-7,-1,+1,7,8,9};
 const int KnightIntervals[]={-17, -15,-10,-6, 6, 10, 15, 17};
 Board B;

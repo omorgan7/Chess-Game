@@ -116,6 +116,7 @@ bool game::update_board_state(string move, int colour)
 				}
 			}
 		}
+		return 0;
 	}
 	return 0;
 }

@@ -32,14 +32,14 @@ int piece::space_free(int new_x, int new_y, piece **board){
     return -1;
 }
 int piece::line_search_diagonal(int new_x, int new_y, piece **board){
-      auto it = 8*pow(-1,new_y>c_y);
-        it = it+pow(-1,new_x<c_x);        
-        for (auto i = c_x + 8*c_y; i != new_x + 8*new_y; i+=it){
-            if (board[i] != nullptr){
-                return 0;
-            }
+    auto it = 8*pow(-1,new_y>c_y);
+    it = it+pow(-1,new_x<c_x);        
+    for (auto i = c_x + 8*c_y; i != new_x + 8*new_y; i+=it){
+        if (board[i] != nullptr){
+            return 0;
         }
-        return 1;
+    }
+    return 1;
 }
 void piece::basic(int x_coord, int y_coord,int colour){
     c_x = x_coord;

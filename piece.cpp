@@ -131,7 +131,7 @@ bool king::move( int new_x, int new_y, piece **board){
             return 0;
         }
     }
-    if((abs(c_x-new_x)<2)&& (abs(c_y-new_y)<2))){
+    if((abs(c_x-new_x)<2)&& (abs(c_y-new_y)<2)){
         return 1;
     }
      return 0;
@@ -233,6 +233,13 @@ bool bishop::move(int new_x, int new_y, piece **board){
         }
       
     }
+    auto it = 8*pow(-1,new_y>c_y);
+        it = it+pow(-1,new_x<c_x);        
+        for (auto i = c_x + 8*c_y; i < new_x + 8*new_y; i+=it){
+            if (board[i] != nullptr){
+                return 0;
+            }
+        }
     if (((abs(c_x + 8*c_y -  new_x - 8*new_y))%7==0)|((abs(c_x + 8*c_y -  new_x - 8*new_y))%9==0)){
         return 1;
     }

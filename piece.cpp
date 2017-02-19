@@ -126,8 +126,12 @@ bool king::castling(piece **board, int side){
     return 1;
 }
 bool king::move( int new_x, int new_y, piece **board){
-    is_initial=0;
-    if((abs(c_x-new_x)<2)&& (abs(c_y-new_y)<2)&&(abs(space_free(new_x, new_y, board)==1))){
+    if (board[new_x + 8*new_y] != nullptr){
+        if (board[new_x + 8*new_y] -> getColour()==team_colour){
+            return 0;
+        }
+    }
+    if((abs(c_x-new_x)<2)&& (abs(c_y-new_y)<2))){
         return 1;
     }
      return 0;

@@ -67,7 +67,10 @@ bool game::update_board_state(string move, int colour)
 		for (auto i = 0; i < 64; i++){
 			if(B.chess_board[i] != nullptr){
 				if(B.chess_board[i]->PieceName == (col_char + move[0]) ){
+					cout<<"x"<<x<<" \n";
+					cout<<"y"<<y<<" \n";
 					if(B.chess_board[i]->move(x, y, B.chess_board) == 1){
+						cout<<"x1"<<x<<" \n";
 						return movePieces(move[0],i,x,y,colour);
 					}
 				}
@@ -126,7 +129,7 @@ bool game::movePieces(char piece, int index, int x, int y, int colour){
 		delete B.chess_board[x + 8 * y];
 	}
 	switchPieces(piece, x, y, colour);
-	if(Check(colour) == 1){
+	if(0 == 1){
 		switchPieces(piece, index%8, index/8, colour);
 		delete B.chess_board[x + 8*y];
 		B.chess_board[x+8*y] = nullptr;

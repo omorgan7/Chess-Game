@@ -72,8 +72,7 @@ bool pawn::initial_move(int new_x, int new_y, piece **board){
     return 0;
 }
 bool pawn::move(int new_x, int new_y, piece **board){  
-    cout<<"is_initial"<<is_initial<<" \n";
-    if (board[new_x + 8*new_y] != nullptr){    
+       if (board[new_x + 8*new_y] != nullptr){    
         if (board[new_x + 8*new_y] -> getColour()==team_colour){
             return 0;
         }
@@ -156,17 +155,17 @@ bool queen::move(int new_x, int new_y, piece **board){
             return 0;
         }
         if ((new_x==c_x)|(new_y==c_y)){
-            auto it = (new_x-c_x)*pow(-1, new_x<c_x)+8*(new_y-c_y)*pow(-1, new_y<c_y);
-            for (auto i = c_x + 8*c_y; i < new_x + 8*new_y; i+=it){
+            int it = (new_x-c_x)*pow(-1, new_x<c_x)+8*(new_y-c_y)*pow(-1, new_y<c_y);
+            for (auto i = c_x + 8*c_y+it; i != new_x + 8*new_y; i+=it){
                 if (board[i] != nullptr){
                     return 0;
                 }
             }  
         }
         else{
-            auto it = 8*pow(-1,new_y>c_y);
-            it = it+pow(-1,new_x<c_x);
-            for (auto i = c_x + 8*c_y; i < new_x + 8*new_y; i+=it){
+           int it = 8*pow(-1,new_y<c_y);
+    it = it+pow(-1,new_x<c_x); 
+    for (auto i = c_x + 8*c_y+it; i != new_x + 8*new_y; i+=it){
                 if (board[i] != nullptr){
                     return 0;
                 }
@@ -192,12 +191,11 @@ rook::rook(int x_coord, int y_coord, int colour){
 bool rook::move(int new_x, int new_y, piece **board){
     is_initial = 0;
     if (board[new_x + 8*new_y] != nullptr){
-        cout<<"not null \n";
-            if (board[new_x + 8*new_y] -> getColour()==team_colour){
+        if (board[new_x + 8*new_y] -> getColour()==team_colour){
                 return 0;
             }    
-        auto it = (new_x-c_x)*pow(-1, new_x<c_x)+8*(new_y-c_y)*pow(-1, new_y<c_y);
-            for (auto i = c_x + 8*c_y; i != new_x + 8*new_y; i+=it){
+        int it = (new_x-c_x)*pow(-1, new_x<c_x)+8*(new_y-c_y)*pow(-1, new_y<c_y);
+            for (auto i = c_x + 8*c_y+it; i != new_x + 8*new_y; i+=it){
                 if (board[i] != nullptr){
                     return 0;
                 }
@@ -220,26 +218,29 @@ bishop::bishop(int x_coord, int y_coord, int colour){
     PieceName ="BB";
 };
 bool bishop::move(int new_x, int new_y, piece **board){
+   
     if (board[new_x + 8*new_y] != nullptr){
         if (board[new_x + 8*new_y] -> getColour()==team_colour){
             return 0;
         }
-        auto it = 8*pow(-1,new_y>c_y);
-        it = it+pow(-1,new_x<c_x);        
-        for (auto i = c_x + 8*c_y; i != new_x + 8*new_y; i+=it){
+        int it = 8*pow(-1,(new_y<c_y));
+         
+        it = it+pow(-1,(new_x<c_x));      
+         
+        for (auto i = c_x + 8*c_y+it; i != new_x + 8*new_y; i+=it){
             if (board[i] != nullptr){
                 return 0;
             }
         }
-      
     }
-    auto it = 8*pow(-1,new_y>c_y);
-        it = it+pow(-1,new_x<c_x);        
-        for (auto i = c_x + 8*c_y; i < new_x + 8*new_y; i+=it){
-            if (board[i] != nullptr){
-                return 0;
-            }
+    int it = 8*pow(-1,new_y<c_y);
+    it = it+pow(-1,new_x<c_x); 
+    for (auto i = c_x + 8*c_y+it; i != new_x + 8*new_y; i+=it){
+      
+        if (board[i] != nullptr){
+            return 0;
         }
+    }
     if (((abs(c_x + 8*c_y -  new_x - 8*new_y))%7==0)|((abs(c_x + 8*c_y -  new_x - 8*new_y))%9==0)){
         return 1;
     }

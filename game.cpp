@@ -318,6 +318,7 @@ bool game::CanBeKilled(int index,int color){
 			}
 		}	
 	}
+	return 0;
 }
 
 bool game::CanBeBlocked(int index, int color){
@@ -363,5 +364,6 @@ bool game::CanBeBlocked(int index, int color){
 			}
         }   
     }
+	return 0;
 }
 

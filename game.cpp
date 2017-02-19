@@ -1,6 +1,7 @@
 #include "game.hpp"
 #include "piece.hpp"
 #include "board.hpp"
+
 const regex expression("([RNBKQP])([a-g])([1-8])=([RNBKQP])|([RNBKQP])([a-g])([1-8])|([RNBKQP])([a-g]|[1-8])([a-g])([1-8])|O(-O){1,2}");
 const int SearchIntervals[] = {-9,-8,-7,-1,+1,7,8,9};
 const int KnightIntervals[]={-17, -15,-10,-6, 6, 10, 15, 17};
@@ -63,35 +64,9 @@ bool game::update_board_state(string move, int colour)
 	if(move.length() == 3) {
 		for (auto i = 0; i < 64; i++){
 			if(B.chess_board[i] != nullptr){
-
 				if(B.chess_board[i]->PieceName == (col_char + move[0]) ){
 					if(B.chess_board[i]->move(x, y, B.chess_board) == 1){
-						delete B.chess_board[i];
-						B.chess_board[i] = nullptr;
-						if(B.chess_board[x + 8 * y] != nullptr){
-							delete B.chess_board[x + 8 * y];
-						}
-						switch (move[0]) {
-							case 'P' :
-								B.chess_board[x + 8 * y] = new pawn(x, y, colour);
-								break;
-							case 'R' :
-								B.chess_board[x + 8 * y] = new rook(x, y, colour);
-								break;
-							case 'N' :
-								B.chess_board[x + 8 * y] = new knight(x, y, colour);
-								break;
-							case 'B' :
-								B.chess_board[x + 8 * y] = new bishop(x, y, colour);
-								break;
-							case 'K':
-								B.chess_board[x + 8 * y] = new king(x, y, colour);
-								break;
-							case 'Q':
-								B.chess_board[x + 8 * y] = new queen(x, y, colour);
-								break;
-						}
-						return 1;
+						return movePieces(move[0],i,x,y,colour);
 					}
 				}
 			}
@@ -122,7 +97,59 @@ bool game::update_board_state(string move, int colour)
 void game::reset()
 {
 	cout << "Another game?\n";
+}
 
+bool game::movePieces(char piece, int index, int x, int y, int colour){
+	delete B.chess_board[index];
+	char old_piece;
+	auto old_piece_flag = 0;
+	B.chess_board[index] = nullptr;
+	if(B.chess_board[x + 8 * y] != nullptr){
+		old_piece_flag = 1;
+		old_piece = B.chess_board[x + 8*y]->PieceName[1];
+		delete B.chess_board[x + 8 * y];
+	}
+	switchPieces(piece, x, y, colour);
+	if(Check(colour) == 1){
+		switchPieces(piece, index%8, index/8, colour);
+		delete B.chess_board[x + 8*y];
+		B.chess_board[x+8*y] = nullptr;
+		if(old_piece_flag==1){
+			switchPieces(old_piece, x,y,inverseColor(colour));
+		}
+		return 0;
+	}
+	return 1;
+}
+
+int game::inverseColor(int colour){
+	if(colour == WHITE){
+		return BLACK;
+	}
+	return WHITE;
+}
+
+void game::switchPieces(char piece, int x, int y, int colour){
+	switch (piece) {
+		case 'P' :
+			B.chess_board[x + 8 * y] = new pawn(x, y, colour);
+			break;
+		case 'R' :
+			B.chess_board[x + 8 * y] = new rook(x, y, colour);
+			break;
+		case 'N' :
+			B.chess_board[x + 8 * y] = new knight(x, y, colour);
+			break;
+		case 'B' :
+			B.chess_board[x + 8 * y] = new bishop(x, y, colour);
+			break;
+		case 'K':
+			B.chess_board[x + 8 * y] = new king(x, y, colour);
+			break;
+		case 'Q':
+			B.chess_board[x + 8 * y] = new queen(x, y, colour);
+			break;
+	}
 }
 
 void game::initialiseScore(void){

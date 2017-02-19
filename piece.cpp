@@ -47,6 +47,9 @@ void piece::basic(int x_coord, int y_coord,int colour){
     team_colour = colour;
     is_initial=1;
 }
+void piece::not_initial(void){
+    is_initial=0;
+}
 /////////////////////////////////////////
 //Pawn Class
 pawn::pawn(int x_coord, int y_coord, int colour){
@@ -84,15 +87,13 @@ bool pawn::move(int new_x, int new_y, piece **board){
     }
     if (is_initial==1){
        if ((new_x == c_x)&&((new_y-c_y)==(1*team_colour))|((new_y-c_y)==(2*team_colour))){
-            is_initial=0;
+        
             return 1;
         }
    }
     if ((new_x == c_x)&&((new_y-c_y)==(1*team_colour))){
-        is_initial=0;
         return 1;
     }
-    is_initial=0;
     return 0;
 }
 bool pawn::en_passant(int new_x, int new_y, piece **board){
@@ -152,7 +153,7 @@ bool queen::move(int new_x, int new_y, piece **board){
         }
         if ((new_x==c_x)|(new_y==c_y)){
             auto it = (new_x-c_x)*pow(-1, new_x<c_x)+8*(new_y-c_y)*pow(-1, new_y<c_y);
-            for (auto i = c_x + 8*c_y; i != new_x + 8*new_y; i+=it){
+            for (auto i = c_x + 8*c_y; i < new_x + 8*new_y; i+=it){
                 if (board[i] != nullptr){
                     return 0;
                 }
@@ -161,7 +162,7 @@ bool queen::move(int new_x, int new_y, piece **board){
         else{
             auto it = 8*pow(-1,new_y>c_y);
             it = it+pow(-1,new_x<c_x);
-            for (auto i = c_x + 8*c_y; i != new_x + 8*new_y; i+=it){
+            for (auto i = c_x + 8*c_y; i < new_x + 8*new_y; i+=it){
                 if (board[i] != nullptr){
                     return 0;
                 }

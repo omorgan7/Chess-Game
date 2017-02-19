@@ -183,6 +183,7 @@ void game::switchPieces(char piece, int x, int y, int colour){
 	switch (piece) {
 		case 'P' :
 			B.chess_board[x + 8 * y] = new pawn(x, y, colour);
+			B.chess_board[x + 8 * y]->not_initial();
 			break;
 		case 'R' :
 			B.chess_board[x + 8 * y] = new rook(x, y, colour);

@@ -10,7 +10,7 @@ using namespace std;
 int main(){
     game G;
     while(1){
-        cout<<"Welcome to text chess!\nType QUIT to end the game immediately.";
+        cout<<"Welcome to text chess!\nType QUIT to end the game immediately.\n";
         G.display_board_state();
         while(1){
             cout<<"Player 1 (White) enter your move:\n";

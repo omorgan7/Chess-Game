@@ -85,19 +85,20 @@ bool game::update_board_state(string move, int colour)
 	else if (move.length() == 4) {
 		int x = letters.find(move[2]);
 		int y = atoi(&move[3]) - 1;
-		// if isdigit(move[1]) {
-		// 	z = atoi(&move[2]) - 1;
-		// }
-		// else if isalpha(move[1]) {
-		// 	z = letters.find(move[1]);
-		// }
-		for (auto i = 0; i < 64; i++) {
-			if (B.chess_board[i] != nullptr) {
+		int z;
+		for (auto i = 0; i < 8; i++) {
+			if (isdigit(move[1])) {
+				int z = ((atoi(&move[2]) - 1) * 8) + i;
+			}
+			else if (isalpha(move[1])) {
+				int z = letters.find(move[1]) + (8 * i);
+			}
+			if (B.chess_board[z] != nullptr) {
 
-				if (B.chess_board[i]->PieceName == (col_char + move[0])) {
-					if (B.chess_board[i]->move(x, y, B.chess_board) == 1) {
-						delete B.chess_board[i];
-						B.chess_board[i] = nullptr;
+				if (B.chess_board[z]->PieceName == (col_char + move[0])) {
+					if (B.chess_board[z]->move(x, y, B.chess_board) == 1) {
+						delete B.chess_board[z];
+						B.chess_board[z] = nullptr;
 						if (B.chess_board[x + 8 * y] != nullptr) {
 							delete B.chess_board[x + 8 * y];
 						}

@@ -221,6 +221,7 @@ void game::initialiseKingPosition(void){
 bool game::Check(int colour){
 	//Should be run at the end of every move to see if this would put a piece in check.
 	SetKingColorIndex(colour);
+	cout<<"king index "<<king_index<<"\n";
 	if(check_lineof_sight(colour)==1){
 		return 1;
 	}
@@ -249,8 +250,10 @@ bool game::check_lineof_sight(int colour){
 			auto index = j*SearchIntervals[i]+king_index;
 			if(index >= 0 && index < 64){
 				if(B.chess_board[index]!=nullptr){
+					cout<<"line 206 \n";
 					if (B.chess_board[index]->getColour() != colour){
-						if(B.chess_board[index]->move(index%8,index/8,B.chess_board)==1){
+						if(B.chess_board[index]->move(king_index%8,king_index/8,B.chess_board)==1){
+							cout<<B.chess_board[index]->PieceName<<"\n";
 							return 1;
 						}		
 					}

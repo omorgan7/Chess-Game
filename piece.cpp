@@ -51,7 +51,7 @@ void piece::basic(int x_coord, int y_coord,int colour){
 //Pawn Class
 pawn::pawn(int x_coord, int y_coord, int colour){
     basic(x_coord,y_coord, colour);
-    piece_value = pawn_value;
+        piece_value = pawn_value;
     if (team_colour == WHITE){
         PieceName = "WP";
     return;
@@ -69,16 +69,26 @@ bool pawn::initial_move(int new_x, int new_y, piece **board){
     return 0;
 }
 bool pawn::move(int new_x, int new_y, piece **board){  
-    if (space_free(new_x, new_y, board) == 0){
-        return 1;
-    }
-    if (space_free(new_x, new_y, board) == -1){
-        if ((abs(new_x - c_x)==1)&&((new_y-c_y)==1*team_colour)){
-                return 1;
-            }
+    cout<<"is_initial"<<is_initial<<" \n";
+    if (board[new_x + 8*new_y] != nullptr){    
+        if (board[new_x + 8*new_y] -> getColour()==team_colour){
             return 0;
+        }
+        else{
+            if ((abs(new_x - c_x)==1)&&((new_y-c_y)==1*team_colour)){
+                    return 1;
+                }
+                return 0;
+
+        }
     }
-    if (((new_x == c_x)&&((new_y-c_y)==-1*team_colour))|(initial_move(new_x, new_y, board)==1)){
+    if (is_initial==1){
+       if ((new_x == c_x)&&((new_y-c_y)==(1*team_colour))|((new_y-c_y)==(2*team_colour))){
+            is_initial=0;
+            return 1;
+        }
+   }
+    if ((new_x == c_x)&&((new_y-c_y)==(1*team_colour))){
         is_initial=0;
         return 1;
     }

@@ -85,12 +85,12 @@ bool game::update_board_state(string move, int colour)
 	else if (move.length() == 4) {
 		int x = letters.find(move[2]);
 		int y = atoi(&move[3]) - 1;
-		if isdigit(move[1]) {
-			z = atoi(&move[2]) - 1;
-		}
-		else if isalpha(move[1]) {
-			z = letters.find(move[1]);
-		}
+		// if isdigit(move[1]) {
+		// 	z = atoi(&move[2]) - 1;
+		// }
+		// else if isalpha(move[1]) {
+		// 	z = letters.find(move[1]);
+		// }
 		for (auto i = 0; i < 64; i++) {
 			if (B.chess_board[i] != nullptr) {
 
@@ -250,7 +250,6 @@ bool game::check_lineof_sight(int colour){
 			auto index = j*SearchIntervals[i]+king_index;
 			if(index >= 0 && index < 64){
 				if(B.chess_board[index]!=nullptr){
-					cout<<"line 206 \n";
 					if (B.chess_board[index]->getColour() != colour){
 						if(B.chess_board[index]->move(king_index%8,king_index/8,B.chess_board)==1){
 							cout<<B.chess_board[index]->PieceName<<"\n";

@@ -74,13 +74,6 @@ bool game::update_board_state(string move, int colour)
 			}
 		}
 		return 0;
-			/*else if (B.chess_board[x + 8 * y]->move(x, y, B.chess_board) == False {
-				return False;
-			}
-			else {
-				continue;
-			}
-		}*/
 	}
 	else if (move.length() == 4) {
 		int x = letters.find(move[2]);
@@ -94,35 +87,9 @@ bool game::update_board_state(string move, int colour)
 				int z = letters.find(move[1]) + (8 * i);
 			}
 			if (B.chess_board[z] != nullptr) {
-
 				if (B.chess_board[z]->PieceName == (col_char + move[0])) {
 					if (B.chess_board[z]->move(x, y, B.chess_board) == 1) {
-						delete B.chess_board[z];
-						B.chess_board[z] = nullptr;
-						if (B.chess_board[x + 8 * y] != nullptr) {
-							delete B.chess_board[x + 8 * y];
-						}
-						switch (move[0]) {
-						case 'P':
-							B.chess_board[x + 8 * y] = new pawn(x, y, colour);
-							break;
-						case 'R':
-							B.chess_board[x + 8 * y] = new rook(x, y, colour);
-							break;
-						case 'N':
-							B.chess_board[x + 8 * y] = new knight(x, y, colour);
-							break;
-						case 'B':
-							B.chess_board[x + 8 * y] = new bishop(x, y, colour);
-							break;
-						case 'K':
-							B.chess_board[x + 8 * y] = new king(x, y, colour);
-							break;
-						case 'Q':
-							B.chess_board[x + 8 * y] = new queen(x, y, colour);
-							break;
-						}
-						return 1;
+						return movePieces(move[0], z, x, y, colour);
 					}
 				}
 			}

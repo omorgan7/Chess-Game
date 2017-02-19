@@ -19,7 +19,7 @@ int main(){
         if(G.Check(BLACK) == 1){
             cout<<"Black is in check.\n";
             if(G.CheckMate(BLACK)==1){
-                cout<<"Checkmate for Black. Game over.";
+                cout<<"Checkmate for Black. Game over.\n";
             }
         }    
         cout<<"Player 2 (Black) enter your move:\n";
@@ -28,7 +28,7 @@ int main(){
         if(G.Check(WHITE) == 1){
             cout<<"White is in check.\n";
             if(G.CheckMate(WHITE)==1){
-                cout<<"Checkmate for White. Game over.";
+                cout<<"Checkmate for White. Game over.\n";
             }
         }      
     }

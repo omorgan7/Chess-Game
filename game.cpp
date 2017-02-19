@@ -67,8 +67,6 @@ bool game::update_board_state(string move, int colour)
 		for (auto i = 0; i < 64; i++){
 			if(B.chess_board[i] != nullptr){
 				if(B.chess_board[i]->PieceName == (col_char + move[0]) ){
-					cout<<"x"<<x<<" \n";
-					cout<<"y"<<y<<" \n";
 					if(B.chess_board[i]->move(x, y, B.chess_board) == 1){
 
 						return movePieces(move[0],i,x,y,colour);
@@ -129,7 +127,7 @@ bool game::movePieces(char piece, int index, int x, int y, int colour){
 		delete B.chess_board[x + 8*y];
 	}
 	switchPieces(piece, x, y, colour);
-	if(0 == 1){
+	if(Check(colour) == 1){
 		switchPieces(piece, index%8, index/8, colour);
 		delete B.chess_board[x + 8*y];
 		B.chess_board[x+8*y] = nullptr;
@@ -194,7 +192,6 @@ void game::initialiseKingPosition(void){
 bool game::Check(int colour){
 	//Should be run at the end of every move to see if this would put a piece in check.
 	SetKingColorIndex(colour);
-	cout<<"king index "<<king_index<<"\n";
 	if(check_lineof_sight(colour)==1){
 		return 1;
 	}
@@ -225,7 +222,6 @@ bool game::check_lineof_sight(int colour){
 				if(B.chess_board[index]!=nullptr){
 					if (B.chess_board[index]->getColour() != colour){
 						if(B.chess_board[index]->move(king_index%8,king_index/8,B.chess_board)==1){
-							cout<<B.chess_board[index]->PieceName<<"\n";
 							return 1;
 						}		
 					}

@@ -30,7 +30,7 @@ class piece {
         void basic(int x_coord, int y_coord, int colour);
         string PieceName;
         int get_is_initial(void);
-        // int line_search_diagonal():
+        int line_search_diagonal(int new_x, int new_y, piece **board);
         // int line_search_straight();
         int space_free(int new_x, int new_y, piece **board);
     private:
@@ -50,6 +50,7 @@ class queen: public piece{
         queen(int x_coord, int y_coord, int colour);
         void reset(void);
         bool move (int new_x, int new_y, piece **board);
+        int line_search_diagonal(int new_x, int new_y, piece **board);
 
 };
 class king: public piece{
@@ -63,6 +64,7 @@ class bishop: public piece{
     public:
         bishop(int x_coord, int y_coord, int colour);
         bool move(int new_x, int new_y, piece **board);
+        int line_search_diagonal(int new_x, int new_y, piece **board);
 };
 class knight: public piece{
     public:

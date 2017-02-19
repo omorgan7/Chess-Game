@@ -14,7 +14,7 @@ class game {
         game();
         void display_board_state(void);
         void print_chessboard_line(string *statestring);
-        void process_input(int color);
+        bool process_input(int color);
         bool movePieces(char piece, int index, int x, int y, int colour);
         void switchPieces(char piece, int x, int y, int colour);
 		bool promotePieces(char new_piece, int index, int x, int y, int colour);

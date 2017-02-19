@@ -21,3 +21,7 @@ Type:
 
 To quit the game. Otherwise, enter algebraic Chess notation but with the piece name appended at the front, e.g. Pe5 means move a pawn to e5.
 
+##Todo:
+
+* Add en passant.
+* Add/debug castle king side.

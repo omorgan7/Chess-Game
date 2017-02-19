@@ -129,7 +129,7 @@ bool game::movePieces(char piece, int index, int x, int y, int colour){
 		delete B.chess_board[x + 8*y];
 	}
 	switchPieces(piece, x, y, colour);
-	if(0 == 1){
+	if(Check(colour) == 1){
 		switchPieces(piece, index%8, index/8, colour);
 		delete B.chess_board[x + 8*y];
 		B.chess_board[x+8*y] = nullptr;

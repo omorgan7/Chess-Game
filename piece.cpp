@@ -77,7 +77,7 @@ bool pawn::move(int new_x, int new_y, piece **board){
             return 0;
         }
         else{
-            if ((abs(new_x - c_x)==1)&&((new_y-c_y)==1*team_colour)){
+            if ((abs(new_x - c_x)==1)&&((new_y-c_y)==(1*team_colour))){
                     return 1;
                 }
                 return 0;
@@ -110,20 +110,20 @@ king::king(int x_coord, int y_coord, int colour){
     };
         PieceName = "BK";
 };
-bool king::castling(piece **board, int side){
-    int index = c_x+8*c_y;
-    int new_pos;
-    if (side==queenside){
-        int new_pos = index - 2;
-    }
-    else{
-        int new_pos = index + 2;
-    }
-    if ((board[index]->get_is_initial() == 0)|(board[index+side]->get_is_initial() == 0)|(board[new_pos]!=nullptr)){
-        return 0;
-    }
-    return 1;
-}
+// bool king::castling(piece **board, int side){
+//     int index = c_x+8*c_y;
+//     int new_pos;
+//     if (side==queenside){
+//         int new_pos = index - 2;
+//     }
+//     else{
+//         int new_pos = index + 2;
+//     }
+//     if ((board[index]->get_is_initial() == 0)|(board[index+side]->get_is_initial() == 0)|(board[new_pos]!=nullptr)){
+//         return 0;
+//     }
+//     return 1;
+// }
 bool king::move( int new_x, int new_y, piece **board){
     if (board[new_x + 8*new_y] != nullptr){
         if (board[new_x + 8*new_y] -> getColour()==team_colour){
@@ -155,45 +155,48 @@ bool queen::move(int new_x, int new_y, piece **board){
             return 0;
         }
         if ((new_x==c_x)|(new_y==c_y)){
-            int it = (new_x-c_x)*pow(-1, new_x<c_x)+8*(new_y-c_y)*pow(-1, new_y<c_y);
-            for (auto i = c_x + 8*c_y+it; i != new_x + 8*new_y; i+=it){
+            int it =(new_x==c_x)*8*pow(-1, new_y<c_y)+(new_y==c_y)*pow(-1, new_x<c_x);
+            for (int i = c_x + 8*c_y+it; i != new_x + 8*new_y; i+=it){
                 if (board[i] != nullptr){
                     return 0;
                 }
-            }  
+            } 
+            return 1;
         }
-        else{
-           int it = 8*pow(-1,new_y<c_y);
-    it = it+pow(-1,new_x<c_x); 
-    for (auto i = c_x + 8*c_y+it; i != new_x + 8*new_y; i+=it){
+        if (((abs(c_x + 8*c_y -  new_x - 8*new_y))%7==0)|((abs(c_x + 8*c_y -  new_x - 8*new_y))%9==0)){
+            int it = 8*pow(-1,new_y<c_y);
+            it = it+pow(-1,new_x<c_x); 
+            for (int i = c_x + 8*c_y+it; i != new_x + 8*new_y; i+=it){
                 if (board[i] != nullptr){
                     return 0;
                 }
-            }   
+            } 
+                return 1;  
         }
-    }
-    if ((new_x==c_x)|(new_y==c_y)){
-            int it = (new_x-c_x)*pow(-1, new_x<c_x)+8*(new_y-c_y)*pow(-1, new_y<c_y);
-            for (auto i = c_x + 8*c_y+it; i != new_x + 8*new_y; i+=it){
-                if (board[i] != nullptr){
-                    return 0;
-                }
-            }  
-        }
-        else{
-           int it = 8*pow(-1,new_y<c_y);
-    it = it+pow(-1,new_x<c_x); 
-    for (auto i = c_x + 8*c_y+it; i != new_x + 8*new_y; i+=it){
-                if (board[i] != nullptr){
-                    return 0;
-                }
-            }   
-        }
-    if ((c_x - new_x !=0) && (c_y-new_y!=0)&&((abs(c_x-new_x))!=(abs(c_y-new_y)))){
             return 0;
-    };
-        return 1;
-};
+    }
+
+    if ((new_x==c_x)|(new_y==c_y)){
+        int it =(new_x==c_x)*8*pow(-1, new_y<c_y)+(new_y==c_y)*pow(-1, new_x<c_x);
+            for (int i = c_x + 8*c_y+it; i != new_x + 8*new_y; i+=it){
+                if (board[i] != nullptr){
+                    return 0;
+                }
+            }
+            return 1;  
+        }
+    if (((abs(c_x + 8*c_y -  new_x - 8*new_y))%7==0)|((abs(c_x + 8*c_y -  new_x - 8*new_y))%9==0)){
+        int it = 8*pow(-1,new_y<c_y);
+        it = it+pow(-1,new_x<c_x); 
+        for (auto i = c_x + 8*c_y+it; i != new_x + 8*new_y; i+=it){
+            if (board[i] != nullptr){
+                return 0;
+            }
+        } 
+        return 1;  
+    }
+    return 0;
+}
 ////////////////////////
 //Rook Class
 rook::rook(int x_coord, int y_coord, int colour){
@@ -206,28 +209,32 @@ rook::rook(int x_coord, int y_coord, int colour){
     PieceName = "BR";
 };
 bool rook::move(int new_x, int new_y, piece **board){
-    is_initial = 0;
     if (board[new_x + 8*new_y] != nullptr){
         if (board[new_x + 8*new_y] -> getColour()==team_colour){
-                return 0;
-            }    
-        int it = (new_x-c_x)*pow(-1, new_x<c_x)+8*(new_y-c_y)*pow(-1, new_y<c_y);
+            return 0;
+        }  
+        if (((new_x==c_x)&&(new_y!=c_y))|((new_y==c_y)&&(new_x!=c_x))){
+            int it =(new_x==c_x)*8*pow(-1, new_y<c_y)+(new_y==c_y)*pow(-1, new_x<c_x);
             for (auto i = c_x + 8*c_y+it; i != new_x + 8*new_y; i+=it){
                 if (board[i] != nullptr){
                     return 0;
                 }
             }  
-    }
-     int it = (new_x-c_x)*pow(-1, new_x<c_x)+8*(new_y-c_y)*pow(-1, new_y<c_y);
-            for (auto i = c_x + 8*c_y+it; i != new_x + 8*new_y; i+=it){
-                if (board[i] != nullptr){
-                    return 0;
-                }
-    if ((c_x - new_x !=0) && (c_y-new_y!=0)){
+            return 1;
+        }
         return 0;
-    };
-    return 1;
-};
+    }
+    if (((new_x==c_x)&&(new_y!=c_y))|((new_y==c_y)&&(new_x!=c_x))){
+        int it =(new_x==c_x)*8*pow(-1, new_y<c_y)+(new_y==c_y)*pow(-1, new_x<c_x);
+        for (auto i = c_x + 8*c_y+it; i != new_x + 8*new_y; i+=it){
+            if (board[i] != nullptr){
+                return 0;
+            }
+        }
+        return 1;
+    }
+    return 0;
+}
 //////////////////////
 //Bishop Class
 bishop::bishop(int x_coord, int y_coord, int colour){

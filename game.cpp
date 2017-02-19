@@ -111,7 +111,7 @@ bool game::update_board_state(string move, int colour)
 			if (B.chess_board[j] != nullptr) {
 				if (B.chess_board[j]->PieceName == (col_char + move[0])) {
 					if (B.chess_board[j]->move(x, y, B.chess_board) == 1) {
-						return movePieces(move[0], j, x, y, colour);
+						return promotePieces(move[4], j, x, y, colour);
 					}
 				}
 			}
@@ -146,6 +146,13 @@ bool game::movePieces(char piece, int index, int x, int y, int colour){
 		cout<<"That move puts you in check!\n";
 		return 0;
 	}
+	return 1;
+}
+
+bool game::promotePieces(char new_piece, int index, int x, int y, int colour) {
+	delete B.chess_board[index];
+	B.chess_board[index] = nullptr;
+	switchPieces(new_piece, x, y, colour);
 	return 1;
 }
 

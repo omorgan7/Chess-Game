@@ -33,6 +33,7 @@ class piece {
         int line_search_diagonal(int new_x, int new_y, piece **board);
         // int line_search_straight();
         int space_free(int new_x, int new_y, piece **board);
+        void not_initial(void);
     private:
     protected:
         void state(int);
@@ -82,5 +83,6 @@ class pawn: public piece{
         bool move(int new_x, int new_y, piece **board);
         bool en_passant(int new_x, int new_y, piece **board);
         bool initial_move(int new_x, int new_y, piece **board);
+        void not_initial(void);
    };
 #endif 

@@ -114,6 +114,7 @@ bool game::update_board_state(string move, int colour)
 				}
 			}
 		}
+		return 0;
 	}
 	return 0;
 }
@@ -134,7 +135,14 @@ bool game::movePieces(char piece, int index, int x, int y, int colour){
 		delete B.chess_board[x + 8*y];
 	}
 	switchPieces(piece, x, y, colour);
+	display_board_state();
+	if(piece == 'K'){
+		SetKingColorIndex(colour, x+8*y);
+	}
 	if(Check(colour) == 1){
+		if(piece == 'K'){
+			SetKingColorIndex(colour, index);
+		}
 		switchPieces(piece, index%8, index/8, colour);
 		delete B.chess_board[x + 8*y];
 		B.chess_board[x+8*y] = nullptr;

@@ -31,7 +31,7 @@ class piece {
         string PieceName;
         int get_is_initial(void);
         int line_search_diagonal(int new_x, int new_y, piece **board);
-        // int line_search_straight();
+        int line_search_straight(int new_x, int new_y, piece **board);
         int space_free(int new_x, int new_y, piece **board);
         void not_initial(void);
     private:

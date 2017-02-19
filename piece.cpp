@@ -24,10 +24,11 @@ int piece::get_is_initial(void){
 }
 int piece::space_free(int new_x, int new_y, piece **board){
     if (board[new_x + 8*new_y] != nullptr){
-    if (board[new_x + 8*new_y] -> getColour()==team_colour){
-        return 0;
+        if (board[new_x + 8*new_y] -> getColour()==team_colour){
+            return 0;
+        }
     }
-    }return -1;
+    return 1;
 }
 int piece::line_search_diagonal(int new_x, int new_y, piece **board){
     if (((abs(c_x + 8*c_y -  new_x - 8*new_y))%7==0)|((abs(c_x + 8*c_y -  new_x - 8*new_y))%9==0)){
@@ -129,13 +130,7 @@ king::king(int x_coord, int y_coord, int colour){
 //     return 1;
 // }
 bool king::move( int new_x, int new_y, piece **board){
-    if (board[new_x + 8*new_y] != nullptr){
-        if (board[new_x + 8*new_y] -> getColour()==team_colour){
-            return 0;
-        }
-        if((abs(c_x-new_x)<2)&& (abs(c_y-new_y)<2)){
-            return 1;
-        }
+   if (piece::space_free(new_x, new_y, board)==0){
         return 0;
     }
     if((abs(c_x-new_x)<2)&& (abs(c_y-new_y)<2)){
@@ -158,10 +153,8 @@ queen::queen(int x_coord, int y_coord,int colour){
 }
 
 bool queen::move(int new_x, int new_y, piece **board){
-    if (board[new_x + 8*new_y] != nullptr){
-        if (board[new_x + 8*new_y] -> getColour()==team_colour){
-            return 0;
-        }
+    if (piece::space_free(new_x, new_y, board)==0){
+        return 0;
     }
     if (((new_x==c_x)&&(new_y!=c_y))|((new_y==c_y)&&(new_x!=c_x))){
         return piece::line_search_straight(new_x, new_y, board);
@@ -183,11 +176,9 @@ rook::rook(int x_coord, int y_coord, int colour){
     PieceName = "BR";
 }
 bool rook::move(int new_x, int new_y, piece **board){
-    if (board[new_x + 8*new_y] != nullptr){
-        if (board[new_x + 8*new_y] -> getColour()==team_colour){
-            return 0;
-        }
-    } 
+    if (piece::space_free(new_x, new_y, board)==0){
+        return 0;
+    }
     if (((new_x==c_x)&&(new_y!=c_y))|((new_y==c_y)&&(new_x!=c_x))){
         return piece::line_search_straight(new_x, new_y, board);
     }
@@ -205,10 +196,8 @@ bishop::bishop(int x_coord, int y_coord, int colour){
     PieceName ="BB";
 }
 bool bishop::move(int new_x, int new_y, piece **board){   
-    if (board[new_x + 8*new_y] != nullptr){
-        if (board[new_x + 8*new_y] -> getColour()==team_colour){
-            return 0;
-        }
+    if (piece::space_free(new_x, new_y, board)==0){
+        return 0;
     }
     if (((abs(c_x + 8*c_y -  new_x - 8*new_y))%7==0)|((abs(c_x + 8*c_y -  new_x - 8*new_y))%9==0)){
         return piece::line_search_diagonal(new_x, new_y, board);
@@ -227,10 +216,8 @@ knight::knight(int x_coord, int y_coord, int colour){
     PieceName = "BN";
 };
 bool knight::move(int new_x, int new_y, piece **board){  
-    if (board[new_x + 8*new_y] != nullptr){
-            if (board[new_x + 8*new_y] -> getColour()==team_colour){
-                return 0;
-            }
+    if (piece::space_free(new_x, new_y, board)==0){
+        return 0;
     }
     if ((new_x == c_x - 1)&&((new_y == c_y -2)|(new_y == c_y+2))){
         return 1;

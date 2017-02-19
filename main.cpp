@@ -8,30 +8,40 @@
 
 using namespace std;
 int main(){
-     cout<<"Welcome to text chess!\n";
-
     game G;
-    G.display_board_state();
     while(1){
-        cout<<"Player 1 (White) enter your move:\n";
-        G.process_input(WHITE);
+        cout<<"Welcome to text chess!\nType QUIT to end the game immediately.";
         G.display_board_state();
-        if(G.Check(BLACK) == 1){
-            cout<<"Black is in check.\n";
-            if(G.CheckMate(BLACK)==1){
-                cout<<"Checkmate for Black. Game over.\n";
+        while(1){
+            cout<<"Player 1 (White) enter your move:\n";
+            if(G.process_input(WHITE) == 0){
+                return EXIT_SUCCESS;
             }
-        }    
-        cout<<"Player 2 (Black) enter your move:\n";
-        G.process_input(BLACK);
-        G.display_board_state();
-        if(G.Check(WHITE) == 1){
-            cout<<"White is in check.\n";
-            if(G.CheckMate(WHITE)==1){
-                cout<<"Checkmate for White. Game over.\n";
+            G.display_board_state();
+            if(G.Check(BLACK) == 1){
+                cout<<"Black is in check.\n";
+                if(G.CheckMate(BLACK)==1){
+                    cout<<"Checkmate for Black. Game over.\n";
+                    G.reset();
+                    break;
+                }
+            }    
+            cout<<"Player 2 (Black) enter your move:\n";
+            if(G.process_input(BLACK) == 0){
+                return EXIT_SUCCESS;
             }
-        }      
+            G.display_board_state();
+            if(G.Check(WHITE) == 1){
+                cout<<"White is in check.\n";
+                if(G.CheckMate(WHITE)==1){
+                    cout<<"Checkmate for White. Game over.\n";
+                    G.reset();
+                    break;
+                }
+            }      
+        }
     }
+
 
     return 0;
 }

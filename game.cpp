@@ -1,7 +1,7 @@
 #include "game.hpp"
 #include "piece.hpp"
 #include "board.hpp"
-const regex expression("([RNBKQP])([a-g])([1-8])=([RNBKQP])|([RNBKQP])([a-g])([1-8])|([RNBKQP])([a-g]|[1-8])([a-g])([1-8])|O(-O){1,2}");
+const regex expression("([RNBKQP])([a-h])([1-8])=([RNBKQP])|([RNBKQP])([a-h])([1-8])|([RNBKQP])([a-h]|[1-8])([a-h])([1-8])|O(-O){1,2}");
 const int SearchIntervals[] = {-9,-8,-7,-1,+1,7,8,9};
 const int KnightIntervals[]={-17, -15,-10,-6, 6, 10, 15, 17};
 Board B;
@@ -31,6 +31,7 @@ void game::process_input(int color) {
 
 void game::display_board_state(void) {
 	string letters = "    a    b    c    d    e    f    g    h";
+	cout<<"Player One Score "<<white_score<<"\n";
 	cout << letters << "\n";
 	auto count = 0;
 	cout << ++count << " ";
@@ -46,6 +47,7 @@ void game::display_board_state(void) {
         }
 	}
     cout<<"|\n";
+	cout<<"Player Two Score "<<black_score<<"\n";
 }
 bool game::update_board_state(string move, int colour)
 // Takes in inputted move, and uses this to update board e.g. BNc3
@@ -70,6 +72,7 @@ bool game::update_board_state(string move, int colour)
 						B.chess_board[i] = nullptr;
 						if(B.chess_board[x + 8 * y] != nullptr){
 							delete B.chess_board[x + 8 * y];
+							score(colour, x+8*y);
 						}
 						switch (move[0]) {
 							case 'P' :
@@ -129,6 +132,15 @@ void game::initialiseScore(void){
 	white_score = 0;
 	black_score = 0;
 }
+void game::score(int colour, int index){
+	if (colour ==WHITE){
+		white_score = white_score + B.chess_board[index]->get_piece_value();
+	}
+	else{
+		black_score = black_score + B.chess_board[index]->get_piece_value();
+	}
+}
+
 void game::initialiseKingPosition(void){
 	black_king_index = 3;
 	white_king_index = 59;

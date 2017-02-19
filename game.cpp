@@ -74,13 +74,6 @@ bool game::update_board_state(string move, int colour)
 			}
 		}
 		return 0;
-			/*else if (B.chess_board[x + 8 * y]->move(x, y, B.chess_board) == False {
-				return False;
-			}
-			else {
-				continue;
-			}
-		}*/
 	}
 	else if (move.length() == 4) {
 		int x = letters.find(move[2]);
@@ -94,14 +87,9 @@ bool game::update_board_state(string move, int colour)
 				int z = letters.find(move[1]) + (8 * i);
 			}
 			if (B.chess_board[z] != nullptr) {
-
 				if (B.chess_board[z]->PieceName == (col_char + move[0])) {
 					if (B.chess_board[z]->move(x, y, B.chess_board) == 1) {
-						delete B.chess_board[z];
-						B.chess_board[z] = nullptr;
-						if (B.chess_board[x + 8 * y] != nullptr) {
-							return movePieces(move[0], z, x, y, colour);
-						}
+						return movePieces(move[0], z, x, y, colour);
 					}
 				}
 			}

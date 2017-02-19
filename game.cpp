@@ -133,6 +133,7 @@ bool game::movePieces(char piece, int index, int x, int y, int colour){
 		old_piece_flag = 1;
 		old_piece = B.chess_board[x + 8*y]->PieceName[1];
 		delete B.chess_board[x + 8*y];
+		score(colour, (x + 8*y));
 	}
 	switchPieces(piece, x, y, colour);
 	//display_board_state();

@@ -63,6 +63,7 @@ bool game::update_board_state(string move, int colour)
 	string letters = "abcdefgh";
 	int x = letters.find(move[1]);
 	int y = atoi(&move[2])-1;
+	int z;
 	if(move.length() == 3) {
 		for (auto i = 0; i < 64; i++){
 			if(B.chess_board[i] != nullptr){
@@ -78,16 +79,15 @@ bool game::update_board_state(string move, int colour)
 		}
 		return 0;
 	}
-		else if (move.length() == 4) {
+	else if (move.length() == 4) {
 		int x = letters.find(move[2]);
 		int y = atoi(&move[3]) - 1;
-		int z;
 		for (auto i = 0; i < 8; i++) {
 			if (isdigit(move[1])) {
-				int z = ((atoi(&move[2]) - 1) * 8) + i;
+				z = ((atoi(&move[1]) - 1) * 8) + i;
 			}
 			else if (isalpha(move[1])) {
-				int z = letters.find(move[1]) + (8 * i);
+				z = letters.find(move[1]) + (8 * i);
 			}
 			if (B.chess_board[z] != nullptr) {
 				if (B.chess_board[z]->PieceName == (col_char + move[0])) {
@@ -99,17 +99,24 @@ bool game::update_board_state(string move, int colour)
 		}
 		return 0;
 	}
-	/*else if (move.length() == 4) {
-		int z;
-		for (auto i = 0; i < 64; i++) {
-			if (isdigit(move[1])){
-				z = atoi(&move[1]);
-			}
-			else if{
-				z = letters.find(to_string(move[1]));
+	else if (move.length() == 5) {
+		if (col_char == "W") {
+			z = 1;
+		}
+		else {
+			z = 6;
+		}
+		for (auto i = 0; i < 8; i++) {
+			int j = z * 8 + i;
+			if (B.chess_board[j] != nullptr) {
+				if (B.chess_board[j]->PieceName == (col_char + move[0])) {
+					if (B.chess_board[j]->move(x, y, B.chess_board) == 1) {
+						return promotePieces(move[4], j, x, y, colour);
+					}
+				}
 			}
 		}
-	}*/
+	}
 	return 0;
 }
 
@@ -139,6 +146,13 @@ bool game::movePieces(char piece, int index, int x, int y, int colour){
 		cout<<"That move puts you in check!\n";
 		return 0;
 	}
+	return 1;
+}
+
+bool game::promotePieces(char new_piece, int index, int x, int y, int colour) {
+	delete B.chess_board[index];
+	B.chess_board[index] = nullptr;
+	switchPieces(new_piece, x, y, colour);
 	return 1;
 }
 

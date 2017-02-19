@@ -72,24 +72,22 @@ bool pawn::initial_move(int new_x, int new_y, piece **board){
     return 0;
 }
 bool pawn::move(int new_x, int new_y, piece **board){  
-       if (board[new_x + 8*new_y] != nullptr){    
+    if (board[new_x + 8*new_y] != nullptr){    
         if (board[new_x + 8*new_y] -> getColour()==team_colour){
             return 0;
-        }
-        else{
-            if ((abs(new_x - c_x)==1)&&((new_y-c_y)==(1*team_colour))){
-                    return 1;
-                }
-                return 0;
-
-        }
-    }
-    if (is_initial==1){
-       if ((new_x == c_x)&&((new_y-c_y)==(1*team_colour))|((new_y-c_y)==(2*team_colour))){
-        
+        }    
+        if ((abs(new_x - c_x)==1)&&((new_y-c_y)==(1*team_colour))){
             return 1;
         }
-   }
+        return 0;
+    }
+
+    if (is_initial==1){
+        if ((new_x == c_x)&&(((new_y-c_y)==(1*team_colour))|((new_y-c_y)==(2*team_colour)))){
+            return 1;
+        }
+        return 0;
+    }
     if ((new_x == c_x)&&((new_y-c_y)==(1*team_colour))){
         return 1;
     }
@@ -129,11 +127,15 @@ bool king::move( int new_x, int new_y, piece **board){
         if (board[new_x + 8*new_y] -> getColour()==team_colour){
             return 0;
         }
+        if((abs(c_x-new_x)<2)&& (abs(c_y-new_y)<2)){
+            return 1;
+        }
+        return 0;
     }
     if((abs(c_x-new_x)<2)&& (abs(c_y-new_y)<2)){
         return 1;
     }
-     return 0;
+    return 0;
 }
 
 ///////////////////////////

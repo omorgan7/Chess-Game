@@ -73,7 +73,6 @@ bool game::update_board_state(string move, int colour)
 			if(B.chess_board[i] != nullptr){
 				if(B.chess_board[i]->PieceName == (col_char + move[0]) ){
 					if(B.chess_board[i]->move(x, y, B.chess_board) == 1){
-
 						return movePieces(move[0],i,x,y,colour);
 					}
 				}
@@ -162,6 +161,7 @@ bool game::movePieces(char piece, int index, int x, int y, int colour){
 		cout<<"That move puts you in check!\n";
 		return 0;
 	}
+	SetKingColorIndex(colour,index);
 	return 1;
 }
 
@@ -337,6 +337,7 @@ bool game::SearchKingSpace(int color){
 }
 
 void game::SetKingColorIndex(int color){
+	//This function is needed to switch the king index between white and black for the purposes of Check calculation.
 	if(color==WHITE){
 		king_index = white_king_index;
 	}
@@ -345,6 +346,7 @@ void game::SetKingColorIndex(int color){
 	}
 }
 void game::SetKingColorIndex(int color, int index){
+	//This function updates the white/black king index, to be called whenever king's position moves.
 	if(color==WHITE){
 		white_king_index = index;
 	}
@@ -376,43 +378,30 @@ bool game::CanBeBlocked(int index, int color){
 	auto king_y = king_index/8;
 	auto attacker_x = index%8;
 	auto attacker_y = index/8;
+	int it = 0;
 	if ((attacker_x==king_x)|(attacker_y==king_y)){
-        auto it = (attacker_x-king_x)*pow(-1, attacker_x<king_x)+8*(attacker_y-king_y)*pow(-1, attacker_y<king_y);
-        for (auto i = king_x + 8*king_y; i != attacker_x + 8*attacker_y; i+=it){
-			for(auto j =0; j<64; j++){
-				if(B.chess_board[j] != nullptr){
-					if(B.chess_board[j]->move(i%8, i/8,B.chess_board)==1){
-						auto temp_ptr = B.chess_board[j];
-						B.chess_board[j] = nullptr;
-						if(Check(color)==0){
-							B.chess_board[j] = temp_ptr;
-							return 1;
-						}
-						B.chess_board[j] = temp_ptr;
-					}
-				}
-			}
-        }  
+        it = 8*(attacker_y-king_y)*pow(-1, attacker_y<king_y);
+		it += (attacker_x-king_x)*pow(-1, attacker_x<king_x);
     }
     else{
-        auto it = 8*pow(-1,attacker_y>king_y);
-        it = it+pow(-1,attacker_x<king_x);
-        for (auto i = king_x + 8*king_y; i != attacker_x + 8*attacker_y; i+=it){
-			for(auto j =0; j<64; j++){
-				if(B.chess_board[j] != nullptr){
-					if(B.chess_board[j]->move(i%8, i/8,B.chess_board)==1){
-						auto temp_ptr = B.chess_board[j];
-						B.chess_board[j] = nullptr;
-						if(Check(color)==0){
-							B.chess_board[j] = temp_ptr;
-							return 1;
-						}
+        it = 8*pow(-1,attacker_y>king_y);
+        it += pow(-1,attacker_x<king_x);  
+    }
+	for (auto i = king_x + 8*king_y; i != attacker_x + 8*attacker_y; i+=it){
+		for(auto j =0; j<64; j++){
+			if(B.chess_board[j] != nullptr){
+				if(B.chess_board[j]->move(i%8, i/8,B.chess_board)==1){
+					auto temp_ptr = B.chess_board[j];
+					B.chess_board[j] = nullptr;
+					if(Check(color)==0){
 						B.chess_board[j] = temp_ptr;
+						return 1;
 					}
+					B.chess_board[j] = temp_ptr;
 				}
 			}
-        }   
-    }
+		}
+    } 
 	return 0;
 }
 

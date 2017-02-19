@@ -48,38 +48,33 @@ pawn::pawn(int x_coord, int y_coord, int colour){
     }
     PieceName = "BP";
 };
-bool pawn::move(int new_x, int new_y, piece **board){  
-
-    // if (space_free(new_x, new_y, board) == 0){
-    //     return 1;
-    // }
-    cout<<(board[new_x + 8*new_y] == nullptr)<<"\n";
-
-    if (board[new_x + 8*new_y] != nullptr){
-        if (board[new_x + 8*new_y] -> getColour()==team_colour){
-            return 0;
-        }
-        std::cout<<"line 57 \n" ;
-        if ((abs(new_x - c_x)==1)&&((new_y-c_y)!=1*team_colour)){
-                return 0;
-            }
-        return 1;
-        is_initial=0;
-          std::cout<<"line 58 \n" ;
-    }
-   if (is_initial ==1){
-        if ((new_x == c_x)&&((new_y==c_y+1*team_colour)|(new_y==c_y+2*team_colour))){
+bool pawn::initial_move(int new_x, int new_y, piece **board){ 
+    if (is_initial!=1){
+        return 0;
+    }  
+     if ((new_x == c_x)&&((new_y==c_y+1*team_colour)|(new_y==c_y+2*team_colour))){
             is_initial=0;
-            std::cout<<"line 69 \n";
             return 1;
-        };
-    };
-
-    if ((new_x == c_x)&&((new_y-c_y)==-1*team_colour)){
-        return 1;
-    };
+    }
     return 0;
-};
+}
+bool pawn::move(int new_x, int new_y, piece **board){  
+    if (space_free(new_x, new_y, board) == 0){
+        return 1;
+    }
+    if (space_free(new_x, new_y, board) == -1){
+        if ((abs(new_x - c_x)==1)&&((new_y-c_y)==1*team_colour)){
+                return 1;
+            }
+            return 0;
+    }
+    if (((new_x == c_x)&&((new_y-c_y)==-1*team_colour))|(initial_move(new_x, new_y, board)==1)){
+        is_initial=0;
+        return 1;
+    }
+    is_initial=0;
+    return 0;
+}
 bool pawn::en_passant(int new_x, int new_y, piece **board){
     if((new_x = c_x)&&(new_y = c_y + team_colour)){}
     return 0;
@@ -111,16 +106,11 @@ bool king::castling(piece **board, int side){
 }
 bool king::move( int new_x, int new_y, piece **board){
     is_initial=0;
-    if (board[new_x + 8*new_y] != nullptr){
-        if (board[new_x + 8*new_y]->getColour()==team_colour){
-            return 0;
-        }
-    }  
-    if((abs(c_x-new_x)<2)&& (abs(c_y-new_y)<2)){
+    if((abs(c_x-new_x)<2)&& (abs(c_y-new_y)<2)&&(abs(space_free(new_x, new_y, board)==1))){
         return 1;
     }
      return 0;
-};
+}
 
 ///////////////////////////
 //Queen Class
@@ -131,9 +121,9 @@ queen::queen(int x_coord, int y_coord,int colour){
     if (colour==WHITE){
         PieceName="WQ";
         return;
-   };
+   }
     PieceName = "BQ";
-};
+}
 
 bool queen::move(int new_x, int new_y, piece **board){
     if (board[new_x + 8*new_y] != nullptr){

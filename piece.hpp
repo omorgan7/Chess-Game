@@ -79,5 +79,6 @@ class pawn: public piece{
         pawn(int x_coord, int y_coord, int colour);
         bool move(int new_x, int new_y, piece **board);
         bool en_passant(int new_x, int new_y, piece **board);
+        bool initial_move(int new_x, int new_y, piece **board);
    };
 #endif 

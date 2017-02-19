@@ -9,7 +9,7 @@ Board::Board(){
 Board::~Board(){
     for (auto i = 0; i<64; i++){
         if(chess_board[i] != nullptr){
-            delete[] chess_board[i];
+            delete chess_board[i];
         }
 	}
     delete[] chess_board;
@@ -47,7 +47,7 @@ void Board::initialise(void){
 void Board::reset(void){
     for (auto i = 0; i<64; i++){
         if(chess_board[i] != nullptr){
-            delete[] chess_board[i];
+            delete chess_board[i];
             chess_board[i] = nullptr;
         }
 	}

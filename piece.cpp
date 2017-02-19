@@ -223,6 +223,7 @@ bool rook::move(int new_x, int new_y, piece **board){
                 if (board[i] != nullptr){
                     return 0;
                 }
+            }
     if ((c_x - new_x !=0) && (c_y-new_y!=0)){
         return 0;
     };

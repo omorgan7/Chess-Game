@@ -210,13 +210,17 @@ bool game::Check(int colour){
 bool game::Check(int colour, int target_x, int target_y){
 	//modified version of the checking function specifically for checkmate purposes.
 	SetKingColorIndex(colour);
+	auto old_king_index = king_index;
 	king_index = target_x + 8*target_y;
 	if(check_lineof_sight(colour)==1){
+		king_index = old_king_index;
 		return 1;
 	}
 	if(check_knights(colour)==1){
+		king_index = old_king_index;
 		return 1;
 	}
+	king_index = old_king_index;
 	return 0;
 }
 
@@ -262,6 +266,7 @@ bool game::CheckMate(int color){
 		return 0;
 	}
 	vector<int> AttackingPieceIndices;
+	cout<<king_index<<" "<<king_index%8<<" "<<king_index/8<<"\n";
 	for(auto i = 0; i<64; i++){
 		if(B.chess_board[i] != nullptr){
 			if(B.chess_board[i]->move(king_index%8,king_index/8,B.chess_board)==1){
@@ -269,13 +274,20 @@ bool game::CheckMate(int color){
 			}
 		}
 	}
+	for(auto i = 0; i<AttackingPieceIndices.size(); i++){
+		cout<<(AttackingPieceIndices[i])<<"\n";
+	}
 	if(AttackingPieceIndices.size()>1){
+		cout<<"273\n";
 		return 1;
 	}
+	
 	if(CanBeKilled(AttackingPieceIndices[0], color)==1){
+		cout<<"278\n";
 		return 0;
 	}
 	if(B.chess_board[AttackingPieceIndices[0]]->PieceName[1] == 'N'){
+		cout<<"282\n";
 		return 1;
 	}
 	return !CanBeBlocked(AttackingPieceIndices[0], color);
@@ -309,6 +321,9 @@ void game::SetKingColorIndex(int color){
 	else{
 		king_index = black_king_index;
 	}
+}
+void game::SetKingColorIndex(int color, int index){
+	king_index = index;
 }
 
 bool game::CanBeKilled(int index,int color){

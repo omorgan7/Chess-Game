@@ -23,6 +23,7 @@ class game {
         bool CheckMate(int color);
         bool SearchKingSpace(int color);
         void SetKingColorIndex(int color);
+        void SetKingColorIndex(int color, int index);
 	bool update_board_state(string move, int colour);
         void initialiseKingPosition(void);
         void initialiseScore(void);

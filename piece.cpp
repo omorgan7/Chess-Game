@@ -172,6 +172,23 @@ bool queen::move(int new_x, int new_y, piece **board){
             }   
         }
     }
+    if ((new_x==c_x)|(new_y==c_y)){
+            int it = (new_x-c_x)*pow(-1, new_x<c_x)+8*(new_y-c_y)*pow(-1, new_y<c_y);
+            for (auto i = c_x + 8*c_y+it; i != new_x + 8*new_y; i+=it){
+                if (board[i] != nullptr){
+                    return 0;
+                }
+            }  
+        }
+        else{
+           int it = 8*pow(-1,new_y<c_y);
+    it = it+pow(-1,new_x<c_x); 
+    for (auto i = c_x + 8*c_y+it; i != new_x + 8*new_y; i+=it){
+                if (board[i] != nullptr){
+                    return 0;
+                }
+            }   
+        }
     if ((c_x - new_x !=0) && (c_y-new_y!=0)&&((abs(c_x-new_x))!=(abs(c_y-new_y)))){
             return 0;
     };
@@ -201,6 +218,11 @@ bool rook::move(int new_x, int new_y, piece **board){
                 }
             }  
     }
+     int it = (new_x-c_x)*pow(-1, new_x<c_x)+8*(new_y-c_y)*pow(-1, new_y<c_y);
+            for (auto i = c_x + 8*c_y+it; i != new_x + 8*new_y; i+=it){
+                if (board[i] != nullptr){
+                    return 0;
+                }
     if ((c_x - new_x !=0) && (c_y-new_y!=0)){
         return 0;
     };

@@ -166,6 +166,7 @@ bool game::movePieces(char piece, int index, int x, int y, int colour){
 		if(old_piece_flag==1){
 			switchPieces(old_piece, x,y,inverseColor(colour));
 		}
+		cout<<"That move puts you in check!\n";
 		return 0;
 	}
 	return 1;
